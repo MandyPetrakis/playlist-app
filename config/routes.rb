@@ -3,9 +3,13 @@ Rails.application.routes.draw do
   resources :songs
   resources :playlist_songs
   resources :playlists
-  resources :users 
+  resources :users do
+    resources :playlists, only: :index
+  end
+  
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
+
 
 
 
