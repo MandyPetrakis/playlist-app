@@ -29,10 +29,15 @@ rescue_from ActiveRecord::RecordInvalid, with: :render_record_invalid
         user.destroy
         head :no_content
     end
+
+    def email
+        user = User.find_by!(params[:email])
+        render json: user, status: :ok
+    end
 private
 
-def render_record_not_found
-    render json: {error: "User not found"}, status: :not_found
+def render_record_not_found(e)
+    render json: {errors: e.record.erros.full_message}, status: :not_found
 end
 
 def render_record_invalid(e)
