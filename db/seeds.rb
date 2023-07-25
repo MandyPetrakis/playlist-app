@@ -3,11 +3,20 @@
 end
 
 10.times do
-    User.create(username: Faker::Internet.username, email: Faker::Internet.email, first_name: Faker::Name.first_name, password_digest: Faker::Internet.password(min_length: 22))
+    User.create(
+        username: Faker::Internet.username, email: Faker::Internet.email, 
+        first_name: Faker::Name.first_name, password: "user"
+    )
 end
 
-50.times do
-    Playlist.create(title: Faker::Hipster.word, mood: Faker::Emotion.noun, user_id: Faker::Number.between(from: 1, to: 10), last_edited: Faker::Date.between(from: 30.days.ago, to: Date.today))
+60.times do
+    Playlist.create(
+        title: Faker::Hipster.word, 
+        mood: Faker::Emotion.noun, 
+        user_id: Faker::Number.between(
+            from: 1, 
+            to: 10)
+    )
 end
 
 900.times do

@@ -1,6 +1,5 @@
 class SongsController < ApplicationController
-rescue_from ActiveRecord::RecordNotFound, with: :render_record_not_found
-rescue_from ActiveRecord::RecordInvalid, with: :render_record_invalid
+
 
     def index
         songs = Song.all
@@ -30,14 +29,6 @@ rescue_from ActiveRecord::RecordInvalid, with: :render_record_invalid
     end
 
     private 
-
-    def render_record_not_found
-        render json: { error: "Song not found"}, status: :not_found
-    end
-
-    def render_record_invalid(e)
-        render json: {errors: e.record.errors.full_messages}, status: :unprocessable_entity
-    end
 
     def song_params
         params.permit(:title, :artist, :length)

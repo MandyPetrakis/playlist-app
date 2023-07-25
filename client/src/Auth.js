@@ -53,6 +53,7 @@ export default function Auth({ setShowLogIn }) {
       }).then((r) => {
         if (r.ok) {
           r.json().then((user) => {
+            console.log("user", user);
             setCurrentUser(user);
             setShowLogIn(false);
           });
@@ -73,7 +74,7 @@ export default function Auth({ setShowLogIn }) {
   return (
     <>
       <div className="login-wrapper">
-        <form className="login-form" onSubmit={handleSubmit}>
+        <form className="flex-column" onSubmit={handleSubmit}>
           <label>
             Email:
             <input

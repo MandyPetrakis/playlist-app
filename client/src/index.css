@@ -11,7 +11,16 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
- .login-form{
+ .flex-column{
   display: flex;
   flex-direction: column;
+ }
+.flex-row {
+  display: flex;
+}
+
+/* Playlists */
+
+ .playlist-card-wrapper {
+  width: 200px
  }

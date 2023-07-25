@@ -1,6 +1,4 @@
 class PlaylistsController < ApplicationController
-rescue_from ActiveRecord::RecordNotFound, with: :render_record_not_found
-rescue_from ActiveRecord::RecordInvalid, with: :render_record_invalid
 
     def index
         if params[:user_id]
@@ -36,14 +34,6 @@ rescue_from ActiveRecord::RecordInvalid, with: :render_record_invalid
     end
 
     private
-
-    def render_record_not_found
-        render json: { error: "Playlist not found"}, status: :not_found
-    end
-
-    def render_record_invalid(e)
-        render json: { errors: e.record.errors.full_messages}
-    end
 
     def playlist_params
         params.permit(:user_id, :title, :mood, :length)

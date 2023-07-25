@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   get '/email', to: 'users#email'
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
+  get "/me", to: "users#logged_in"
 
 
 

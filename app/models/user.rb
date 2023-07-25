@@ -8,5 +8,9 @@ class User < ApplicationRecord
 
     has_many :playlists, dependent: :destroy
 
+    def member_since
+        self.created_at.strftime('%B %d, %Y')
+    end
+
 
 end
