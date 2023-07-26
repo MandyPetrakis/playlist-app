@@ -1,5 +1,4 @@
 import Auth from "./Auth";
-import Homepage from "./Homepage";
 import NavBar from "./NavBar";
 import { useCurrentUser } from "./Context";
 import { useState, useEffect } from "react";

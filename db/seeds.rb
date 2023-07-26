@@ -5,7 +5,7 @@ end
 10.times do
     User.create(
         username: Faker::Internet.username, email: Faker::Internet.email, 
-        first_name: Faker::Name.first_name, password: "user"
+        first_name: Faker::Name.first_name, password: "user", image: Faker::Avatar.image
     )
 end
 

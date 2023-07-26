@@ -1,12 +1,6 @@
 import { NavLink } from "react-router-dom";
 
 export default function NavBar({ setShowLogIn }) {
-  const linkStyles = {
-    display: "flex",
-    margin: "10px",
-    borderStyle: "none",
-  };
-
   function handleLogOut() {
     fetch("/logout", {
       method: "DELETE",
@@ -22,12 +16,10 @@ export default function NavBar({ setShowLogIn }) {
       </div>
       <span className="menu">MENU</span>
       <div>
-        <NavLink to="/" style={{ linkStyles }}>
-          Home
-        </NavLink>
-        <NavLink to="/account" style={{ linkStyles }}>
-          Account
-        </NavLink>
+        <NavLink to="/">Home</NavLink>
+        <NavLink to="/explore">Explore</NavLink>
+        <NavLink to="/library">Your Library</NavLink>
+        <NavLink to="/account">Account</NavLink>
         <button onClick={handleLogOut}>Log Out</button>
       </div>
     </div>

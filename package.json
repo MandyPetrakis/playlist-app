@@ -5,6 +5,7 @@
     "node": "16.x"
   },
   "scripts": {
+    "start": "PORT=4000 react-scripts start",
     "build": "npm install --prefix client && npm run build --prefix client",
     "clean": "rm -rf public",
     "deploy": "cp -a client/build/. public/",
@@ -12,5 +13,8 @@
   },
   "dependencies": {
     "client": "^0.0.1"
+  },
+  "devDependencies": {
+    "tailwindscss": "^0.3.0"
   }
 }

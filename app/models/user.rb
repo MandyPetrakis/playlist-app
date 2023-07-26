@@ -12,5 +12,15 @@ class User < ApplicationRecord
         self.created_at.strftime('%B %d, %Y')
     end
 
+    def mood_list
+        moods = self.playlists.collect {|p| p.mood}
+        moods.uniq
+    end
+
+    def liked_songs
+        songs = self.playlists.collect {|p| p.songs}
+        songs.flatten.uniq
+    end
+
 
 end

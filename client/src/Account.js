@@ -5,6 +5,9 @@ export default function Account() {
   return (
     <>
       <div>
+        <div>
+          <img src={currentUser.image} alt="Profile Picture" />
+        </div>
         Username: {currentUser.username}
         Email: {currentUser.email}
         Playlists: {currentUser.playlists.length}
