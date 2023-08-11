@@ -20,14 +20,18 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
+    <div className="text-gray-200 m-10 bg-black">
       {showLogIn ? (
         <Auth setShowLogIn={setShowLogIn} />
       ) : (
-        <>
-          <NavBar setShowLogIn={setShowLogIn} />
-          <Outlet />
-        </>
+        <div className="md:grid grid-cols-5">
+          <div className="md:block md:col-span-1">
+            <NavBar setShowLogIn={setShowLogIn} />
+          </div>
+          <div className="md:col-span-4">
+            <Outlet />
+          </div>
+        </div>
       )}
     </div>
   );
