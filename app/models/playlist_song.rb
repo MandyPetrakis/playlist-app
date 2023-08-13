@@ -10,4 +10,19 @@ def song_title
     title
 end
 
+def song_artist
+    artist = Song.find(self.song_id).artist
+    artist
+end
+
+def song_length
+    length = Song.find(self.song_id).length
+    length
+end
+
+def song_image 
+    image = Song.find(self.song_id).image
+    image
+end
+
 end

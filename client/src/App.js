@@ -3,6 +3,8 @@ import NavBar from "./NavBar";
 import { useCurrentUser } from "./Context";
 import { useState, useEffect } from "react";
 import { Outlet } from "react-router-dom";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 
 function App() {
   const [currentUser, setCurrentUser] = useCurrentUser();
@@ -29,7 +31,9 @@ function App() {
             <NavBar setShowLogIn={setShowLogIn} />
           </div>
           <div className="md:col-span-4">
-            <Outlet />
+            <DndProvider backend={HTML5Backend}>
+              <Outlet />
+            </DndProvider>
           </div>
         </div>
       )}

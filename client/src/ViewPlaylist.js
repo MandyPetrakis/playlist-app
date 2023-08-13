@@ -1,21 +1,36 @@
-import { useCurrentPlaylist, useCurrentUser, useSongs } from "./Context";
+import { useCurrentUser, useSongs, useCards } from "./Context";
 import SongCard from "./SongCard";
+import { DnDContainer } from "./DnDContainer";
+import { useLoaderData } from "react-router-dom";
+import { useState, useEffect } from "react";
 import PlaylistSongCard from "./PlaylistSongCard";
 
-export default function ViewPlaylist() {
-  const [currentPlaylist, setCurrentPlaylist] = useCurrentPlaylist();
-  const [currentUser, setCurrentUser] = useCurrentUser();
-  const songs = useSongs();
-  const canRemove = currentPlaylist.user_id === currentUser.id;
+export const playlistL = async ({ params }) => {
+  const res = await fetch(`/playlists/${params.playlistId}`);
+  const playlist = await res.json();
+  return playlist;
+};
 
-  const playlistSongs = currentPlaylist.playlist_songs.map((s) => (
-    <PlaylistSongCard
-      key={s.id}
-      playlist_song={s}
-      canRemove={canRemove}
-      setCurrentPlaylist={setCurrentPlaylist}
-    />
-  ));
+export default function ViewPlaylist() {
+  const songs = useSongs();
+  const currentPlaylist = useLoaderData();
+  const [playlist, setPlaylist] = useState(currentPlaylist);
+  const [currentUser] = useCurrentUser();
+  const canRemove = currentPlaylist.user_id === currentUser.id;
+  const [_, setCards] = useCards();
+
+  function cardRender(playlist) {
+    setCards(
+      playlist.playlist_songs.map((s) => ({
+        id: s.id,
+        text: s,
+      }))
+    );
+  }
+
+  useEffect(() => {
+    cardRender(playlist);
+  }, []);
 
   const songSuggestions = songs
     .slice(0, 14)
@@ -23,15 +38,17 @@ export default function ViewPlaylist() {
       <SongCard
         key={s.id}
         song={s}
-        currentPlaylist={currentPlaylist}
-        setCurrentPlaylist={setCurrentPlaylist}
+        playlist={playlist}
+        setPlaylist={setPlaylist}
+        cardRender={cardRender}
+        canRemove={canRemove}
       />
     ));
 
   return (
     <>
       <div className="flex">
-        <span className="text-3xl uppercase">{currentPlaylist.title}</span>
+        <span className="text-3xl uppercase">{playlist.title}</span>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
@@ -47,10 +64,14 @@ export default function ViewPlaylist() {
       </div>
       <div className="mb-3 font-extralight">
         {currentPlaylist.username} | {currentPlaylist.playlist_songs.length}{" "}
-        songs{" "}
+        songs
       </div>
-      {playlistSongs}
-      {currentUser.id === currentPlaylist.user_id ? (
+      <DnDContainer
+        cardRender={cardRender}
+        canRemove={canRemove}
+        setPlaylist={setPlaylist}
+      />
+      {currentUser.id === playlist.user_id ? (
         <>
           <div className=" text-md font-bold">Recommended</div>
           <div className="text-xs font-light mb-3">

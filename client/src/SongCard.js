@@ -1,17 +1,13 @@
 import { useState } from "react";
 
-export default function SongCard({
-  song,
-  currentPlaylist,
-  setCurrentPlaylist,
-}) {
+export default function SongCard({ song, playlist, setPlaylist, cardRender }) {
   const [added, setAdded] = useState(false);
 
   function handleAdd() {
     let addedSong = {
-      playlist_id: currentPlaylist.id,
+      playlist_id: playlist.id,
       song_id: song.id,
-      order: 1,
+      order: 100,
     };
 
     fetch("/playlist_songs", {
@@ -22,18 +18,11 @@ export default function SongCard({
       body: JSON.stringify(addedSong),
     })
       .then((r) => r.json())
-      .then((playlist) => {
-        setCurrentPlaylist(playlist);
+      .then((data) => {
+        setPlaylist(data);
         setAdded(true);
+        cardRender(data);
       });
-  }
-
-  function handleDelete() {
-    fetch(`/playlist_songs/${song.id}`, {
-      method: "DELETE",
-    })
-      .then((r) => r.json)
-      .then((data) => console.log(data));
   }
 
   return (

@@ -4,7 +4,7 @@ class PlaylistsController < ApplicationController
         if params[:user_id]
             user = User.find(params[:user_id])
             playlists = user.playlists
-            render json: playlists, include: :songs, status: :ok
+            render json: playlists, status: :ok
         else
             playlists = Playlist.all
             render json: playlists, status: :ok

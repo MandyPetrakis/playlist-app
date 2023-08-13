@@ -1,13 +1,10 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useCurrentPlaylist } from "./Context";
 
 export default function PlaylistCard({ playlist, hideUser }) {
-  const [currentPlaylist, setCurrentPlaylist] = useCurrentPlaylist();
-
   let navigate = useNavigate();
+
   const routeChange = () => {
-    let path = `/playlist`;
+    let path = `${playlist.id}`;
     navigate(path);
   };
 
@@ -15,7 +12,6 @@ export default function PlaylistCard({ playlist, hideUser }) {
     <div
       className="playlist-card-wrapper rounded bg-zinc-900 hover:bg-zinc-800 m-4 p-4 w-40 min-w-fit h-64 transition-colors group"
       onClick={() => {
-        setCurrentPlaylist(playlist);
         routeChange();
       }}
     >

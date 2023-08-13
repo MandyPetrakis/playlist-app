@@ -1,5 +1,5 @@
 300.times do
-    Song.create(title: Faker::Book.title, artist: Faker::Music.band, length: "3:45")
+    Song.create(title: Faker::Book.title, artist: Faker::Music.band, length: "3:45", image: Faker::LoremFlickr.image)
 end
 
 10.times do
@@ -12,7 +12,8 @@ end
 60.times do
     Playlist.create(
         title: Faker::Hipster.word, 
-        mood: Faker::Emotion.noun, 
+        mood: Faker::Emotion.noun,
+        image:Faker::LoremFlickr.image(search_terms: ["color"]),
         user_id: Faker::Number.between(
             from: 1, 
             to: 10)

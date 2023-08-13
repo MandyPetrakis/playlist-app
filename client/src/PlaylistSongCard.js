@@ -1,20 +1,23 @@
-import { useState } from "react";
 export default function PlaylistSongCard({
   playlist_song,
-  setCurrentPlaylist,
+  setPlaylist,
   canRemove,
+  cardRender,
 }) {
   function handleDelete() {
     fetch(`/playlist_songs/${playlist_song.id}`, {
       method: "DELETE",
     })
       .then((r) => r.json())
-      .then((data) => setCurrentPlaylist(data));
+      .then((data) => {
+        setPlaylist(data);
+        cardRender(data);
+      });
   }
 
   return (
     <div className="flex mb-1 items-center w-full p-2 rounded hover:bg-zinc-800 transition-colors">
-      <div className="mr-5">#</div>
+      <div className="mr-5">{playlist_song.order}</div>
 
       <img className="w-10 mr-5" src={playlist_song.song_image} />
       <div>

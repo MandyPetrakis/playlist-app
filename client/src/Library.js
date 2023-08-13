@@ -1,10 +1,12 @@
-import { usePlaylists, useCurrentUser } from "./Context";
+import { useCurrentUser } from "./Context";
 import { useState } from "react";
 import SongCard from "./SongCard";
 import PlaylistCard from "./PlaylistCard";
+import { useLoaderData } from "react-router-dom";
 
 export default function Library() {
-  const [playlists, setPlaylists] = usePlaylists();
+  let playlists = useLoaderData();
+  const [renderPlaylists, setRenderPlaylists] = useState(playlists);
   const [currentUser, setCurrentUser] = useCurrentUser();
   const [creatingNew, setCreatingNew] = useState(false);
   const [title, setTitle] = useState();
@@ -12,7 +14,7 @@ export default function Library() {
   const [image, setImage] = useState();
   const [errors, setErrors] = useState();
 
-  const yourPlaylists = playlists
+  const yourPlaylists = renderPlaylists
     .filter((p) => p.user_id === currentUser.id)
     .map((p) => <PlaylistCard key={p.id} playlist={p} />);
 
@@ -38,7 +40,7 @@ export default function Library() {
     }).then((r) => {
       if (r.ok) {
         r.json().then((newPlaylist) => {
-          setPlaylists([newPlaylist, ...playlists]);
+          setRenderPlaylists([newPlaylist, ...renderPlaylists]);
           setTitle();
           setMood();
         });
@@ -135,7 +137,6 @@ export default function Library() {
             </div>
           </div>
         ) : null}
-
         {yourPlaylists}
       </div>
       <div className="text-3xl mb-5">Liked Songs:</div>

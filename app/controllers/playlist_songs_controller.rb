@@ -11,7 +11,8 @@ class PlaylistSongsController < ApplicationController
 
     def create
         playlist_song = PlaylistSong.create!(playlist_song_params)
-        render json: playlist_song, status: :created
+        playlist = Playlist.find(params[:playlist_id])
+        render json: playlist, status: :created
     end
 
     def update
@@ -23,13 +24,15 @@ class PlaylistSongsController < ApplicationController
     def destroy
         playlist_song = PlaylistSong.find(params[:id])
         playlist_song.destroy
-        head :no_content
+        playlist = Playlist.find(playlist_song.playlist_id)
+        render json: playlist
     end
 private
 
 def playlist_song_params
     params.permit(:playlist_id, :song_id, :order)
 end
+
 
     # verify user owns the playlist_song through playlist
 end

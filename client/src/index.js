@@ -6,18 +6,22 @@ import Home from "./Home";
 import Account from "./Account";
 import Library from "./Library";
 import Explore from "./Explore";
-import ViewPlaylist from "./ViewPlaylist";
+import ViewPlaylist, { playlistLoader } from "./ViewPlaylist";
 import ContextProvider from "./Context";
+import { playlistsLoader } from "./Home";
+import { playlistL } from "./ViewPlaylist";
+
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 const router = createBrowserRouter([
   {
-    path: "/",
     element: <App />,
+    path: "/",
     children: [
       {
-        path: "/",
         element: <Home />,
+        path: "/",
+        loader: playlistsLoader,
       },
       {
         path: "/account",
@@ -26,14 +30,16 @@ const router = createBrowserRouter([
       {
         path: "/library",
         element: <Library />,
+        loader: playlistsLoader,
       },
       {
         path: "/explore",
         element: <Explore />,
       },
       {
-        path: "/playlist",
         element: <ViewPlaylist />,
+        path: ":playlistId",
+        loader: playlistL,
       },
     ],
   },
