@@ -4,7 +4,7 @@ export default function PlaylistCard({ playlist, hideUser }) {
   let navigate = useNavigate();
 
   const routeChange = () => {
-    let path = `${playlist.id}`;
+    let path = `/${playlist.id}`;
     navigate(path);
   };
 

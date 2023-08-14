@@ -17,8 +17,8 @@ class PlaylistSongsController < ApplicationController
 
     def update
         playlist_song = PlaylistSong.find(params[:id])
-        playlist_song.update(playlist_songs_params)
-        redner json: playlist_song, status: :ok
+        playlist_song.update(playlist_song_params)
+        render json: playlist_song, status: :ok
     end
 
     def destroy

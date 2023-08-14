@@ -3,7 +3,7 @@ import { useCallback, useState } from "react";
 import { DnDCard } from "./DnDCard";
 import { useCards } from "./Context";
 
-export function DnDContainer({ cardRender, canRemove, setPlaylist }) {
+export function DnDContainer({ cardRender, canRemove, setPlaylist, playlist }) {
   const [wasMoved, setWasMoved] = useState(false);
   const [cards, setCards] = useCards();
 
@@ -20,6 +20,25 @@ export function DnDContainer({ cardRender, canRemove, setPlaylist }) {
   }, []);
 
   function handleSave() {
+    cards.forEach((c, index) => {
+      let song = playlist.playlist_songs.find(({ id }) => id === c.id);
+
+      let order = index + 1;
+
+      if (song.order === order) return;
+      else {
+        let update = { order: order };
+
+        fetch(`/playlist_songs/${song.id}`, {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(update),
+        }).then((r) => r.json());
+      }
+    });
+
     setWasMoved(false);
   }
 

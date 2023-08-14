@@ -3,7 +3,6 @@ import SongCard from "./SongCard";
 import { DnDContainer } from "./DnDContainer";
 import { useLoaderData } from "react-router-dom";
 import { useState, useEffect } from "react";
-import PlaylistSongCard from "./PlaylistSongCard";
 
 export const playlistL = async ({ params }) => {
   const res = await fetch(`/playlists/${params.playlistId}`);
@@ -70,6 +69,7 @@ export default function ViewPlaylist() {
         cardRender={cardRender}
         canRemove={canRemove}
         setPlaylist={setPlaylist}
+        playlist={playlist}
       />
       {currentUser.id === playlist.user_id ? (
         <>

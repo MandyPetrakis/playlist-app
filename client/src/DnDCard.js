@@ -78,6 +78,7 @@ export const DnDCard = ({
         canRemove={canRemove}
         setPlaylist={setPlaylist}
         cardRender={cardRender}
+        index={index}
       />
     </div>
   );

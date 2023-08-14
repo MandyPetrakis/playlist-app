@@ -3,6 +3,7 @@ export default function PlaylistSongCard({
   setPlaylist,
   canRemove,
   cardRender,
+  index,
 }) {
   function handleDelete() {
     fetch(`/playlist_songs/${playlist_song.id}`, {
@@ -17,7 +18,7 @@ export default function PlaylistSongCard({
 
   return (
     <div className="flex mb-1 items-center w-full p-2 rounded hover:bg-zinc-800 transition-colors">
-      <div className="mr-5">{playlist_song.order}</div>
+      <div className="mr-5">{index + 1}</div>
 
       <img className="w-10 mr-5" src={playlist_song.song_image} />
       <div>
