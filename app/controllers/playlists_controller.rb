@@ -1,4 +1,6 @@
 class PlaylistsController < ApplicationController
+    before_action :authorize
+    skip_before_action :authorize, only: [:index, :show]
 
     def index
         if params[:user_id]
@@ -30,10 +32,20 @@ class PlaylistsController < ApplicationController
     def destroy
         playlist = Playlist.find(params[:id])
         playlist.destroy
-        head :no_content
+        playlists = Playlist.all
+        render json: playlists
     end
 
     private
+
+    def authorize
+        if params[:user_id]
+        return render json: [error: "Not Authorized"], status: :unauthorized unless session[:user_id] === params[:user_id]
+        else  
+        playlist = Playlist.find(params[:id])
+        return render json: [error: "Not Authorized"], status: :unauthorized unless session[:user_id] === playlist.user_id
+        end
+    end
 
     def playlist_params
         params.permit(:user_id, :title, :mood, :length)

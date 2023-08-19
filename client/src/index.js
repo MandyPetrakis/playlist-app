@@ -4,8 +4,8 @@ import "./index.css";
 import App from "./App";
 import Home from "./Home";
 import Account from "./Account";
-import Library from "./Library";
 import Explore from "./Explore";
+import Library from "./Library";
 import ViewPlaylist, { playlistLoader } from "./ViewPlaylist";
 import ContextProvider from "./Context";
 import { playlistsLoader } from "./Home";
@@ -33,13 +33,14 @@ const router = createBrowserRouter([
         loader: playlistsLoader,
       },
       {
-        path: "/explore",
-        element: <Explore />,
-      },
-      {
         element: <ViewPlaylist />,
         path: ":playlistId",
         loader: playlistL,
+      },
+      {
+        element: <Explore />,
+        path: "/explore",
+        loader: playlistsLoader,
       },
     ],
   },

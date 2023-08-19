@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
 
+
     def show
         user = User.find(params[:id])
         render json: user
@@ -45,7 +46,6 @@ private
 
 
 def user_params
-    # params.permit( :first_name, :id)
     params.permit(:username, :email, :first_name, :password, :password_confirmation, :id)
 
 end

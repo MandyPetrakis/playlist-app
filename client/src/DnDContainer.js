@@ -22,12 +22,11 @@ export function DnDContainer({ cardRender, canRemove, setPlaylist, playlist }) {
   function handleSave() {
     cards.forEach((c, index) => {
       let song = playlist.playlist_songs.find(({ id }) => id === c.id);
-
       let order = index + 1;
 
       if (song.order === order) return;
       else {
-        let update = { order: order };
+        let update = { order: order, user_id: c.user_id };
 
         fetch(`/playlist_songs/${song.id}`, {
           method: "PATCH",
@@ -58,9 +57,21 @@ export function DnDContainer({ cardRender, canRemove, setPlaylist, playlist }) {
   }, []);
 
   return (
-    <>
-      {wasMoved ? <button onClick={handleSave}>Save Order</button> : null}
+    <div className={`${wasMoved ? "pt-0 grid mb-10" : "pt-10 grid mb-10"}`}>
+      {wasMoved ? (
+        <button
+          className="bg-emerald-400 py-2 px-4 rounded w-40 Class
+          Properties
+          place-self-auto	place-self: auto;
+          place-self-start	place-self: start;
+          place-self-end	place-self: end;
+          place-self-center"
+          onClick={handleSave}
+        >
+          Save Order
+        </button>
+      ) : null}
       <div className="w-400">{cards.map((card, i) => renderCard(card, i))}</div>
-    </>
+    </div>
   );
 }

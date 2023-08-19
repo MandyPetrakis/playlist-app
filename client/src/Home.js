@@ -14,21 +14,24 @@ export default function Home() {
 
   const yourPlaylists = playlists
     .filter((p) => p.user_id === currentUser.id)
-    .slice(0, 9)
     .map((p) => <PlaylistCard key={p.id} playlist={p} hideUser={true} />);
 
   const homePlaylists = playlists
-    .filter((p) => currentUser.mood_list.includes(p.mood))
+    .filter((p) => currentUser.id !== p.user_id)
     .slice(0, 9)
     .map((p) => <PlaylistCard key={p.id} playlist={p} />);
 
   return (
-    <>
-      <div>Welcome, {currentUser.first_name}!</div>
+    <div className="">
+      <div className="text-3xl mb-5">Welcome, {currentUser.first_name}!</div>
       Your Playlists:
-      <div className="flex overflow-scroll">{yourPlaylists}</div>
+      <div className="flex overflow-scroll scrollbar-hide text-xl">
+        {yourPlaylists}
+      </div>
       Playlists we think you'll like:
-      <div className="flex overflow-scroll">{homePlaylists}</div>
-    </>
+      <div className="flex overflow-scroll scrollbar-hide text-xl">
+        {homePlaylists}
+      </div>
+    </div>
   );
 }

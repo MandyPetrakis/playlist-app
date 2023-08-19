@@ -22,7 +22,7 @@ function App() {
   }, []);
 
   return (
-    <div className="text-gray-200 m-10 bg-black">
+    <div className="text-gray-200 bg-black">
       {showLogIn ? (
         <Auth setShowLogIn={setShowLogIn} />
       ) : (
@@ -30,7 +30,7 @@ function App() {
           <div className="md:block md:col-span-1">
             <NavBar setShowLogIn={setShowLogIn} />
           </div>
-          <div className="md:col-span-4">
+          <div className="md:col-span-4 p-10">
             <DndProvider backend={HTML5Backend}>
               <Outlet />
             </DndProvider>

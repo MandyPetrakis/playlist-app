@@ -24,5 +24,9 @@ def song_image
     image = Song.find(self.song_id).image
     image
 end
+def user_id
+    user_id = self.user.id
+    user_id
+end
 
 end

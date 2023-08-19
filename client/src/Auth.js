@@ -73,82 +73,112 @@ export default function Auth({ setShowLogIn }) {
 
   return (
     <>
-      <div className="login-wrapper">
-        <form className="flex-column" onSubmit={handleSubmit}>
-          <label>
-            Email:
-            <input
-              value={email}
-              type="text"
-              name="email"
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </label>
-          <label>
-            Password:
-            <input
-              value={password}
-              type="password"
-              name="password"
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </label>
-          {newUser ? (
-            <>
-              <label>
-                Confirm Password:
-                <input
-                  type="password"
-                  value={passwordConfirmation}
-                  name="password_confirmation"
-                  onChange={(e) => setPasswordConfirmation(e.target.value)}
-                />
-              </label>
-              <label>
-                Username:
-                <input
-                  type="text"
-                  name="username"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                />
-              </label>
-              <label>
-                First Name:
-                <input
-                  type="text"
-                  name="first_name"
-                  value={firstName}
-                  onChange={(e) => setFirstName(e.target.value)}
-                />
-              </label>
-              <button type="submit">Continue</button>
-              {errors ? errors.errors.map((e) => <li>{e}</li>) : null}
+      <div className="grid place-content-center bg-cover p-20 w-screen h-screen z-0 bg-no-repeat bg-fixed bg-[url('https://3.bp.blogspot.com/-HcabgU2G8SI/V6EXnr4JDHI/AAAAAAAAGrM/W34Dy1pZDB8VPgCv68NsAGjkNTUkUeyZgCLcB/s1600/TM14_web.jpg')]">
+        <div className="flex w-80 py-16 px-10 place-content-center rounded bg-zinc-900 opacity-70">
+          <form className="flex flex-col" onSubmit={handleSubmit}>
+            <label className="mb-4">
+              <div className="mr-3">Email:</div>
+              <input
+                className="rounded bg-zinc-300 focus:outline-none caret-black px-2 py-1 text-black"
+                value={email}
+                type="text"
+                name="email"
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </label>
+            <label className="mb-4">
+              <div className="mr-3">Password:</div>
+              <input
+                className="rounded bg-zinc-300 focus:outline-none caret-black px-2 py-1 text-black"
+                value={password}
+                type="password"
+                name="password"
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </label>
+            {newUser ? (
+              <>
+                <label className="mb-4">
+                  <div className="mr-3">Confirm Password:</div>
+                  <input
+                    className="rounded bg-zinc-300 focus:outline-none caret-black px-2 py-1 text-black"
+                    type="password"
+                    value={passwordConfirmation}
+                    name="password_confirmation"
+                    onChange={(e) => setPasswordConfirmation(e.target.value)}
+                  />
+                </label>
+                <label className="mb-4">
+                  <div className="mr-3">Username:</div>
+                  <input
+                    className="rounded bg-zinc-300 focus:outline-none caret-black px-2 py-1 text-black"
+                    type="text"
+                    name="username"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                  />
+                </label>
+                <label className="mb-4">
+                  <div className="mr-3">First Name:</div>
+                  <input
+                    className="rounded bg-zinc-300 focus:outline-none caret-black px-2 py-1 text-black"
+                    type="text"
+                    name="first_name"
+                    value={firstName}
+                    onChange={(e) => setFirstName(e.target.value)}
+                  />
+                </label>
+                <button
+                  className="mb-5 bg-emerald-400 rounded p-2"
+                  type="submit"
+                >
+                  Continue
+                </button>
+                <div className="text-red-500 text-xs">
+                  {errors ? errors.errors.map((e) => <li>{e}</li>) : null}
+                </div>
 
-              <button
-                onClick={() => {
-                  setNewUser(false);
-                  setErrors();
-                }}
-              >
-                I've been here before.
-              </button>
-            </>
-          ) : (
-            <>
-              <button type="submit">Continue</button>
-              {errors ? errors.errors.map((e) => <li>{e}</li>) : null}
-              <button
-                onClick={() => {
-                  setNewUser(true);
-                  setErrors();
-                }}
-              >
-                I'm new here.
-              </button>
-            </>
-          )}
-        </form>
+                <button
+                  onClick={() => {
+                    setNewUser(false);
+                    setErrors();
+                  }}
+                >
+                  Been here before?{" "}
+                  <span className="underline underline-offset-2 text-emerald-400">
+                    Log in
+                  </span>
+                </button>
+              </>
+            ) : (
+              <>
+                <button
+                  className="mb-5 bg-emerald-400 rounded p-2"
+                  type="submit"
+                >
+                  Continue
+                </button>
+                {errors
+                  ? errors.errors.map((e) => (
+                      <li className="text-red-500 mb-3">{e}</li>
+                    ))
+                  : null}
+                <button
+                  className=""
+                  onClick={() => {
+                    setNewUser(true);
+                    setErrors();
+                  }}
+                >
+                  New here?{" "}
+                  <span className=" underline underline-offset-2 text-emerald-400">
+                    Sign up
+                  </span>
+                </button>
+              </>
+            )}
+          </form>
+        </div>
       </div>
     </>
   );

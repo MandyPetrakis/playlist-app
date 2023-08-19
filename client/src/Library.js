@@ -9,9 +9,9 @@ export default function Library() {
   const [renderPlaylists, setRenderPlaylists] = useState(playlists);
   const [currentUser, setCurrentUser] = useCurrentUser();
   const [creatingNew, setCreatingNew] = useState(false);
-  const [title, setTitle] = useState();
-  const [mood, setMood] = useState();
-  const [image, setImage] = useState();
+  const [title, setTitle] = useState("");
+  const [mood, setMood] = useState("");
+  const [image, setImage] = useState("");
   const [errors, setErrors] = useState();
 
   const yourPlaylists = renderPlaylists
@@ -19,7 +19,7 @@ export default function Library() {
     .map((p) => <PlaylistCard key={p.id} playlist={p} />);
 
   const likedSongs = currentUser.liked_songs.map((s) => (
-    <SongCard key={s.id} song={s} />
+    <SongCard key={s.id} song={s} canAdd={false} />
   ));
 
   function handleNewPlaylist(e) {
@@ -41,8 +41,9 @@ export default function Library() {
       if (r.ok) {
         r.json().then((newPlaylist) => {
           setRenderPlaylists([newPlaylist, ...renderPlaylists]);
-          setTitle();
-          setMood();
+          setTitle("");
+          setMood("");
+          setCreatingNew(false);
         });
       } else {
         r.json().then((e) => {
@@ -55,7 +56,7 @@ export default function Library() {
   return (
     <div>
       <div className="text-3xl mb-1">Your Playlists:</div>
-      <div className="flex overflow-scroll mb-5">
+      <div className="flex overflow-scroll scrollbar-hide mb-5">
         <div
           className="create-playlist rounded bg-zinc-900 hover:bg-emerald-500 m-4 p-4 w-40 min-w-fit h-64 transition-colors group"
           onClick={() => setCreatingNew(true)}
@@ -85,14 +86,14 @@ export default function Library() {
         </div>
         {creatingNew ? (
           <div className="rounded bg-zinc-900 hover:bg-zinc-800 m-4 p-4 w-40 min-w-fit h-64 transition-colors ">
-            <div className="grid place-content-center mx-auto mb-2 rounded w-36 h-36 group">
+            <div className="grid place-content-center mx-auto rounded w-36 h-36 group">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
                 strokeWidth="1.5"
                 stroke="currentColor"
-                className="rounded w-24 text-zinc-200 transition-colors group-hover:hidden"
+                className="rounded w-24 text-zinc-200 transition-colors"
               >
                 <path
                   strokeLinecap="round"
@@ -100,7 +101,7 @@ export default function Library() {
                   d="M9 9l10.5-3m0 6.553v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 11-.99-3.467l2.31-.66a2.25 2.25 0 001.632-2.163zm0 0V2.25L9 5.25v10.303m0 0v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 01-.99-3.467l2.31-.66A2.25 2.25 0 009 15.553z"
                 />
               </svg>
-              <div className="mx-auto rounded w-36 h-36 hidden group-hover:grid place-content-center">
+              {/* <div className="mx-auto rounded w-36 h-36 hidden group-hover:grid place-content-center">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
@@ -112,7 +113,7 @@ export default function Library() {
                 <span className="text-xs text-center hidden group-hover:block">
                   Choose Photo
                 </span>
-              </div>
+              </div> */}
             </div>
             <div>
               <form onSubmit={handleNewPlaylist}>
@@ -132,7 +133,12 @@ export default function Library() {
                   onChange={(e) => setMood(e.target.value)}
                 />
                 <br />
-                <button type="submit">Save</button>
+                <button
+                  className="bg-emerald-500 px-3 py-1 rounded ml-16"
+                  type="submit"
+                >
+                  Save
+                </button>
               </form>
             </div>
           </div>

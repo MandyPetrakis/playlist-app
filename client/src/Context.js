@@ -28,7 +28,7 @@ export default function ContextProvider({ children }) {
   }, []);
 
   return (
-    <Songs.Provider value={songs}>
+    <Songs.Provider value={[songs, setSongs]}>
       <CurrentUser.Provider value={[currentUser, setCurrentUser]}>
         <Cards.Provider value={[cards, setCards]}>{children}</Cards.Provider>
       </CurrentUser.Provider>

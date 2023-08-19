@@ -1,4 +1,7 @@
 class PlaylistSongsController < ApplicationController
+before_action :authorize
+skip_before_action :authorize, only: [:index,:show]
+
     def index
         playlist_songs = PlaylistSong.all 
         render json: playlist_songs, status: :ok
@@ -30,8 +33,20 @@ class PlaylistSongsController < ApplicationController
 private
 
 def playlist_song_params
-    params.permit(:playlist_id, :song_id, :order)
+    params.permit(:playlist_id, :song_id, :order, :user_id)
 end
+
+def authorize
+    if params[:id]
+    playlist_song = PlaylistSong.find(params[:id])
+    return render json: [error: "Not Authorized"], status: :unauthorized unless session[:user_id] === playlist_song.user_id
+    else
+        playlist = Playlist.find(params[:playlist_id])
+    return render json: [error: "Not Authorized"], status: :unauthorized unless session[:user_id] === playlist.user_id
+
+    end
+end
+
 
 
     # verify user owns the playlist_song through playlist

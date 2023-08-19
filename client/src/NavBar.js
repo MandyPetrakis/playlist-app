@@ -8,27 +8,27 @@ export default function NavBar({ setShowLogIn }) {
   }
 
   return (
-    <div className="nav-bar mb-20">
-      <div className="hamburger mr-5 float-left">
-        <span className="h-1 w-10 mb-2 block bg-white"></span>
-        <span className="h-1 w-10 mb-2 block bg-white"></span>
-        <span className="h-1 w-10 mb-2 block bg-white"></span>
+    <div className="mb-10 py-5 px-2 text-white rounded md:grid">
+      <div className="hamburger mr-5 float-left md:mb-10">
+        <span className="h-1 w-10 mb-2 block bg-emerald-400 rounded"></span>
+        <span className="h-1 w-10 mb-2 block bg-emerald-400 rounded"></span>
+        <span className="h-1 w-10 mb-2 block bg-emerald-400 rounded"></span>
       </div>
-      <span className="menu">MENU</span>
-      <div className="flex md:flex-col float-right md:float-left">
-        <div className="mr-5">
+
+      <div className="flex p-2 md:flex-col float-right md:float-left">
+        <div className="mr-5 md:mb-2">
           <NavLink to="/">Home</NavLink>
         </div>
-        <div className="mr-5">
-          <NavLink to="/explore">Explore</NavLink>
-        </div>
-        <div className="mr-5">
+        <div className="mr-5 md:mb-2">
           <NavLink to="/library">Your Library</NavLink>
         </div>
-        <div className="mr-5">
+        <div className="mr-5 md:mb-2">
+          <NavLink to="/explore">Explore</NavLink>
+        </div>
+        <div className="mr-5 md:mb-2">
           <NavLink to="/account">Account</NavLink>
         </div>
-        <div className="mr-5" onClick={handleLogOut}>
+        <div className="cursor-pointer md:mb-2" onClick={handleLogOut}>
           Log Out
         </div>
       </div>
