@@ -94,6 +94,14 @@ export default function Explore() {
             </svg>
           </button>
         </div>
+        {errors ? (
+          <div className="text-red-500 text-sm font-light mb-3 ml-10">
+            {errors.errors.map((e) => (
+              <li>{e}</li>
+            ))}{" "}
+          </div>
+        ) : null}
+
         {exploreSongs}
         <button
           className="mb-5 bg-zinc-900 px-3 py-2 opacity-80 rounded hover:opacity-100 w-full"

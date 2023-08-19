@@ -118,18 +118,22 @@ export default function Library() {
             <div>
               <form onSubmit={handleNewPlaylist}>
                 <input
-                  className="bg-transparent focus:outline-none"
+                  className={`bg-transparent focus:outline-none ${
+                    errors ? "placeholder-red-500" : null
+                  }`}
                   type="text"
                   value={title}
-                  placeholder="Title"
+                  placeholder={`${errors ? "*Title" : "Title"}`}
                   onChange={(e) => setTitle(e.target.value)}
                 />
                 <br />
                 <input
-                  className="bg-transparent focus:outline-none"
+                  className={`bg-transparent focus:outline-none ${
+                    errors ? "placeholder-red-500" : null
+                  }`}
                   type="text"
                   value={mood}
-                  placeholder="Mood"
+                  placeholder={`${errors ? "*Mood" : "Mood"}`}
                   onChange={(e) => setMood(e.target.value)}
                 />
                 <br />

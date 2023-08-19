@@ -12,7 +12,7 @@ export const playlistL = async ({ params }) => {
 };
 
 export default function ViewPlaylist() {
-  const songs = useSongs();
+  const [songs] = useSongs();
   const currentPlaylist = useLoaderData();
   const [playlist, setPlaylist] = useState(currentPlaylist);
   const [currentUser] = useCurrentUser();
@@ -20,14 +20,19 @@ export default function ViewPlaylist() {
   const [_, setCards] = useCards();
   const [showMenu, setShowMenu] = useState(false);
   let navigate = useNavigate();
-  const [songTitle, setSongTitle] = useState("");
-  const [artist, setArtist] = useState("");
-  const [errors, setErrors] = useState();
 
   const routeChange = () => {
-    let path = `/`;
+    let path = `/library`;
     navigate(path);
   };
+
+  async function handleDelete() {
+    const res = await fetch(`/playlists/${playlist.id}`, {
+      method: "DELETE",
+    });
+    const deleted = await res.json();
+    return routeChange();
+  }
 
   function cardRender(playlist) {
     setCards(
@@ -68,46 +73,6 @@ export default function ViewPlaylist() {
     };
     return <SongCard key={s.id} song={song} canAdd={false} />;
   });
-
-  function handleDelete() {
-    fetch(`/playlists/${playlist.id}`, {
-      method: "DELETE",
-    })
-      .then(async (r) => {
-        await r.json();
-      })
-      .then(routeChange());
-  }
-
-  function handeAddSong(e) {
-    e.preventDefault();
-
-    let song = {
-      title: songTitle,
-      artist: artist,
-      length: "3:45",
-    };
-
-    fetch("/songs", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(song),
-    }).then((r) => {
-      if (r.ok) {
-        r.json().then((newSong) => {
-          setPlaylist([...playlist, newSong]);
-          setSongTitle("");
-          setArtist("");
-        });
-      } else {
-        r.json().then((e) => {
-          setErrors(e);
-        });
-      }
-    });
-  }
 
   return (
     <div className="">
@@ -156,44 +121,6 @@ export default function ViewPlaylist() {
             setPlaylist={setPlaylist}
             playlist={playlist}
           />
-          <div className="flex mb-3 items-center w-full p-2 rounded  hover:bg-zinc-800 transition-colors group">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth="1.5"
-              stroke="currentColor"
-              className="rounded w-14 text-zinc-200 mr-5 group-hover:bg-emerald-500"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M12 4.5v15m7.5-7.5h-15"
-              />
-            </svg>
-            <div className="">
-              <span className="mb-1">Add song to playlist </span>
-              <form onSubmit={handeAddSong}>
-                <input
-                  className="bg-transparent focus:outline-none mb-1"
-                  type="text"
-                  value={songTitle}
-                  placeholder="Title"
-                  onChange={(e) => setSongTitle(e.target.value)}
-                />
-                <br />
-                <input
-                  className="bg-transparent focus:outline-none"
-                  type="text"
-                  value={artist}
-                  placeholder="Artist"
-                  onChange={(e) => setArtist(e.target.value)}
-                />
-                <button></button>
-              </form>
-              {errors ? errors.errors.map((e) => <li>{e}</li>) : null}
-            </div>
-          </div>
 
           <div className=" text-lg font-bold">Recommended</div>
           <div className="text-xs font-light mb-5">

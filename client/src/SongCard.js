@@ -77,12 +77,10 @@ export default function SongCard({
             : "https://e1.pxfuel.com/desktop-wallpaper/389/930/desktop-wallpaper-spotify-playlist-cover-playlist-covers.jpg"
         }
       />
-      <div>
-        <div className="flex justify-between w-96 items-center">
-          {song.title} <br />
-          {song.artist}
-          <div className="mr-3">{song.length}</div>
-        </div>
+      <div className="flex justify-between w-full items-center">
+        {song.title} <br />
+        {song.artist}
+        <div className="mr-3">{song.length}</div>
       </div>
     </div>
   );

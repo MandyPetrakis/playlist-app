@@ -1,4 +1,4 @@
-import { useCurrentUser, usePlaylists } from "./Context";
+import { useCurrentUser } from "./Context";
 import { useLoaderData } from "react-router-dom";
 import PlaylistCard from "./PlaylistCard";
 
@@ -10,7 +10,7 @@ export const playlistsLoader = async () => {
 
 export default function Home() {
   const playlists = useLoaderData();
-  const [currentUser, setCurrentUser] = useCurrentUser();
+  const [currentUser] = useCurrentUser();
 
   const yourPlaylists = playlists
     .filter((p) => p.user_id === currentUser.id)
