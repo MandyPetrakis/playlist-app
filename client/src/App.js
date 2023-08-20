@@ -7,7 +7,7 @@ import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 
 function App() {
-  const [currentUser, setCurrentUser] = useCurrentUser();
+  const [_, setCurrentUser] = useCurrentUser();
   const [showLogIn, setShowLogIn] = useState(true);
 
   useEffect(() => {

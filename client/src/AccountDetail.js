@@ -33,7 +33,7 @@ export default function AccountDetail({ data, label, param }) {
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            className="uppercase font-light text-md md:text-lg bg-inherit text-white caret-inherit focus:outline-none"
+            className="uppercase mr-2 w-full font-light text-md md:text-lg bg-inherit text-white caret-inherit focus:outline-none"
           />
           <button
             type="submit"

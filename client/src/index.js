@@ -10,7 +10,6 @@ import ViewPlaylist, { playlistLoader } from "./ViewPlaylist";
 import ContextProvider from "./Context";
 import { playlistsLoader } from "./Home";
 import { playlistL } from "./ViewPlaylist";
-
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 const router = createBrowserRouter([

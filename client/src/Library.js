@@ -16,7 +16,7 @@ export default function Library() {
 
   const yourPlaylists = renderPlaylists
     .filter((p) => p.user_id === currentUser.id)
-    .map((p) => <PlaylistCard key={p.id} playlist={p} />);
+    .map((p) => <PlaylistCard key={p.id} playlist={p} hideUser={true} />);
 
   const likedSongs = currentUser.liked_songs.map((s) => (
     <SongCard key={s.id} song={s} canAdd={false} />

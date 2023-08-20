@@ -110,9 +110,10 @@ export default function ViewPlaylist() {
         ) : null}
       </div>
       <div className="mb-3 font-extralight">
-        {currentPlaylist.username} | {currentPlaylist.playlist_songs.length}{" "}
+        mood: {currentPlaylist.mood} | {currentPlaylist.playlist_songs.length}{" "}
         songs
       </div>
+      <div className="mb-3 font-extralight">by: {currentPlaylist.username}</div>
       {currentUser.id === playlist.user_id ? (
         <>
           <DnDContainer

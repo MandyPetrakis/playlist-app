@@ -103,12 +103,18 @@ export default function Explore() {
         ) : null}
 
         {exploreSongs}
-        <button
-          className="mb-5 bg-zinc-900 px-3 py-2 opacity-80 rounded hover:opacity-100 w-full"
-          onClick={() => setVisibleSongs(visibleSongs + 10)}
-        >
-          Load More Songs
-        </button>
+        {visibleSongs >= songs.length ? (
+          <div className="mb-5 text-center bg-zinc-900 px-3 py-2 opacity-80 rounded hover:opacity-100 w-full">
+            The End
+          </div>
+        ) : (
+          <button
+            className="mb-5 bg-zinc-900 px-3 py-2 opacity-80 rounded hover:opacity-100 w-full"
+            onClick={() => setVisibleSongs(visibleSongs + 10)}
+          >
+            Load More Songs
+          </button>
+        )}
       </div>
     </>
   );
