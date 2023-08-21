@@ -10,7 +10,7 @@ export default function PlaylistCard({ playlist, hideUser }) {
 
   return (
     <div
-      className="rounded bg-zinc-900 hover:bg-zinc-800 m-4 p-4 h-64 w-64 text-ellipsis transition-colors group"
+      className="rounded bg-zinc-900 hover:bg-zinc-800 m-4 p-4 h-64 grow-0 text-ellipsis transition-colors group cursor-pointer"
       onClick={() => {
         routeChange();
       }}
@@ -32,7 +32,9 @@ export default function PlaylistCard({ playlist, hideUser }) {
       <div className="uppercase font-semibold w-36 whitespace-nowrap text-ellipsis overflow-hidden">
         {playlist.title} <br />
       </div>
-      <div className="text-sm font-light"> mood: {playlist.mood}</div>
+      <div className="text-sm font-light">
+        <span className="text-emerald-300">mood</span> - {playlist.mood}
+      </div>
       {hideUser ? null : (
         <div className="text-sm font-ligh"> by {playlist.username}</div>
       )}

@@ -2,13 +2,15 @@ import Auth from "./Auth";
 import NavBar from "./NavBar";
 import { useCurrentUser } from "./Context";
 import { useState, useEffect } from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigation } from "react-router-dom";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
+import { Bars } from "react-loader-spinner";
 
 function App() {
   const [_, setCurrentUser] = useCurrentUser();
   const [showLogIn, setShowLogIn] = useState(true);
+  const navigation = useNavigation();
 
   useEffect(() => {
     fetch("/me").then((response) => {
@@ -30,11 +32,25 @@ function App() {
           <div className="md:block md:col-span-1">
             <NavBar setShowLogIn={setShowLogIn} />
           </div>
-          <div className="md:col-span-4 p-10">
-            <DndProvider backend={HTML5Backend}>
-              <Outlet />
-            </DndProvider>
-          </div>
+          {navigation.state === "loading" ? (
+            <div className="grid place-content-center md:col-span-4">
+              <Bars
+                height="80"
+                width="80"
+                color="rgb(52 211 153)"
+                ariaLabel="bars-loading"
+                wrapperStyle={{}}
+                wrapperClass=""
+                visible={true}
+              />
+            </div>
+          ) : (
+            <div className="md:col-span-4 px-10 md:py-16">
+              <DndProvider backend={HTML5Backend}>
+                <Outlet />
+              </DndProvider>
+            </div>
+          )}
         </div>
       )}
     </div>

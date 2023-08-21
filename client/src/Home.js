@@ -22,14 +22,18 @@ export default function Home() {
     .map((p) => <PlaylistCard key={p.id} playlist={p} />);
 
   return (
-    <div className="">
-      <div className="text-3xl mb-5">Welcome, {currentUser.first_name}!</div>
-      Your Playlists:
-      <div className="flex overflow-scroll scrollbar-hide text-xl">
+    <div>
+      <div className="text-lg mb-5 float-right">
+        Hi, {currentUser.first_name}!
+      </div>
+      <div className="text-2xl mb-1 text-emerald-300">Your Playlists</div>
+      <div className="flex flex-initial overflow-scroll scrollbar-hide">
         {yourPlaylists}
       </div>
-      Playlists we think you'll like:
-      <div className="flex overflow-scroll scrollbar-hide text-xl">
+      <span className="text-2xl mb-1 text-emerald-300">
+        Playlists we think you'll like
+      </span>
+      <div className="flex flex-initial  overflow-scroll scrollbar-hide">
         {homePlaylists}
       </div>
     </div>

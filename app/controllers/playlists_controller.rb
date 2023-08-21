@@ -25,7 +25,7 @@ class PlaylistsController < ApplicationController
 
     def update
         playlist = Playlist.find(params[:id])
-        plalist.update!(playlist_params)
+        playlist.update!(playlist_params)
         render json: playlist, status: :accepted 
     end
 

@@ -67,7 +67,7 @@ export default function NavBar({ setShowLogIn }) {
           </NavLink>
         </div>
         <div
-          className="cursor-pointer bg-emerald-400 px-3 py-1 rounded text-zinc-800 font-semibold whitespace-nowrap"
+          className="text-sm cursor-pointer bg-emerald-400 px-3 py-1 rounded text-zinc-800 font-semibold whitespace-nowrap"
           onClick={handleLogOut}
         >
           Log Out
