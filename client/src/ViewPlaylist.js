@@ -99,13 +99,13 @@ export default function ViewPlaylist() {
     <div>
       <div
         onClick={toggleModal}
-        className="w-full h-full top-0 left-0 right-0 bottom-0 fixed bg-emerald-100 opacity-40"
+        className="w-full h-full top-0 left-0 right-0 bottom-0 fixed bg-emerald-900 opacity-40"
       ></div>
-      <div className="absolute mt-20 bg-zinc-800 px-10 py-10 rounded max-w-xl min-w-md grid place-content-center">
+      <div className="absolute top-20 left-24 bg-zinc-900 p-10 rounded max-w-md min-w-md grid place-content-center">
         <form className="grid mb-2" onSubmit={handleEdit}>
-          <label className="text-zinc-500">Title </label>
+          <label className="text-zinc-500 text-lg font-semibold">Title </label>
           <input
-            className="bg-inherit uppercase focus:outline-none leading-5 mb-2 text-white"
+            className="text-2xl bg-inherit uppercase focus:outline-none leading-5 mb-2 text-white"
             type="text"
             placeholder={playlistName}
             value={playlistName}
@@ -113,9 +113,9 @@ export default function ViewPlaylist() {
           />
 
           <br />
-          <label className="text-zinc-500">Mood </label>
+          <label className="text-zinc-500 text-lg font-semibold">Mood </label>
           <input
-            className="bg-inherit lowerercase focus:outline-none leading-5 mb-4 text-white"
+            className="text-2xl  bg-inherit lowerercase focus:outline-none leading-5 mb-5 text-white"
             type="text"
             placeholder={playlistMood}
             value={playlistMood}
@@ -171,7 +171,7 @@ export default function ViewPlaylist() {
         playlist={playlist}
       />
 
-      <div className=" text-2xl font-bold">Recommended</div>
+      <div className="text-2xl font-bold">Recommended</div>
       <div className="text-md font-light mb-5">
         Based on what's in this playlist
       </div>
@@ -199,14 +199,12 @@ export default function ViewPlaylist() {
         {modal && modalRender}
       </div>
       <div className="mb-3 font-extralight text-lg">
-        <span className="text-emerald-300">mood </span>- {currentPlaylist.mood}{" "}
-        | {currentPlaylist.playlist_songs.length} songs
+        <span className="text-emerald-300">mood </span>- {playlist.mood} |{" "}
+        {playlist.playlist_songs.length} songs
       </div>
       <div className="mb-3 font-extralight text-lg">
         <span className="font-light text-zinc-500">by </span>
-        <span className="font-semibold text-zinc-200">
-          {currentPlaylist.username}
-        </span>
+        <span className="font-semibold text-zinc-200">{playlist.username}</span>
       </div>
       {currentUser.id === playlist.user_id ? ownerPlaylist : nonOwnerPlaylist}
     </div>

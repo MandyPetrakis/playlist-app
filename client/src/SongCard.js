@@ -53,7 +53,6 @@ export default function SongCard({
   return (
     <div className="group flex mb-1 px-5 py-3 items-center w-full rounded hover:bg-zinc-800 transition-colors">
       {canAdd ? addButton : null}
-      <div className="mr-5 font-extralight">{song.order}</div>
       <img
         className="w-14 mr-5"
         src={

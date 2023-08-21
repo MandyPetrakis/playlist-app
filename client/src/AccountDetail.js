@@ -38,7 +38,7 @@ export default function AccountDetail({ data, label, param }) {
           <button
             type="submit"
             onClick={handleSave}
-            className="border-2 rounded-full font-light px-2 py-1 text-xs md:text-sm w-16 "
+            className="bg-emerald-500 rounded-full font-semibold text-black px-2 py-1 text-xs md:text-sm w-16 opacity-50 hover:opacity-100"
           >
             Save
           </button>
@@ -50,7 +50,7 @@ export default function AccountDetail({ data, label, param }) {
           </span>
           <button
             onClick={() => setEdit(!edit)}
-            className="border-2 rounded-full font-light px-2 py-1 text-xs md:text-sm w-16 "
+            className="bg-emerald-500 rounded-full px-2 py-1 text-xs text-black font-semibold md:text-sm w-16 opacity-50 hover:opacity-100"
           >
             Edit
           </button>

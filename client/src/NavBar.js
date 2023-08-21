@@ -46,7 +46,7 @@ export default function NavBar({ setShowLogIn }) {
             Home
           </NavLink>
         </div>
-        <div className="mr-5 md:mb-5">
+        <div className="mr-5 md:mb-5 whitespace-nowrap">
           <NavLink
             className={(navData) =>
               navData.isActive ? activeStyle : inactiveStyle

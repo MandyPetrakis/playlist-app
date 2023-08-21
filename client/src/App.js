@@ -33,7 +33,7 @@ function App() {
             <NavBar setShowLogIn={setShowLogIn} />
           </div>
           {navigation.state === "loading" ? (
-            <div className="grid place-content-center md:col-span-4">
+            <div className="grid place-content-center mt-32 md:mt-40 md:col-span-4">
               <Bars
                 height="80"
                 width="80"
