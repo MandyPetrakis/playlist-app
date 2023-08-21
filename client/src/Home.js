@@ -27,13 +27,13 @@ export default function Home() {
         Hi, {currentUser.first_name}!
       </div>
       <div className="text-2xl mb-1 text-emerald-300">Your Playlists</div>
-      <div className="flex flex-initial overflow-scroll scrollbar-hide">
+      <div className="flex flex-initial mb-5 border-b-2  border-zinc-700 overflow-scroll scrollbar-hide w-full">
         {yourPlaylists}
       </div>
       <span className="text-2xl mb-1 text-emerald-300">
         Playlists we think you'll like
       </span>
-      <div className="flex flex-initial  overflow-scroll scrollbar-hide">
+      <div className="flex border-b-2  border-zinc-700 flex-initial  overflow-scroll scrollbar-hide">
         {homePlaylists}
       </div>
     </div>

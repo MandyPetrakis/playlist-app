@@ -101,7 +101,7 @@ export default function ViewPlaylist() {
         onClick={toggleModal}
         className="w-full h-full top-0 left-0 right-0 bottom-0 fixed bg-emerald-100 opacity-40"
       ></div>
-      <div className="absolute mx-auto mt-20 bg-zinc-800 px-10 py-10 rounded max-w-xl min-w-md grid place-content-center">
+      <div className="absolute mt-20 bg-zinc-800 px-10 py-10 rounded max-w-xl min-w-md grid place-content-center">
         <form className="grid mb-2" onSubmit={handleEdit}>
           <label className="text-zinc-500">Title </label>
           <input
@@ -162,6 +162,23 @@ export default function ViewPlaylist() {
       />
     ));
 
+  const ownerPlaylist = (
+    <>
+      <DnDContainer
+        cardRender={cardRender}
+        canRemove={canRemove}
+        setPlaylist={setPlaylist}
+        playlist={playlist}
+      />
+
+      <div className=" text-2xl font-bold">Recommended</div>
+      <div className="text-md font-light mb-5">
+        Based on what's in this playlist
+      </div>
+      {songSuggestions}
+    </>
+  );
+
   const nonOwnerPlaylist = playlist.playlist_songs.map((s, index) => {
     let song = {
       id: s.song_id,
@@ -175,35 +192,23 @@ export default function ViewPlaylist() {
   });
 
   return (
-    <div className={` w-9/12 ${modal ? "fixed overflow-hidden" : null}`}>
+    <div className={`${modal ? "fixed overflow-hidden" : null} w-full`}>
       <div className="flex content-stretch">
-        <span className="text-3xl uppercase">{playlist.title}</span>
+        <span className="text-5xl uppercase">{playlist.title}</span>
         {canRemove ? ownerMenuOptions : null}
         {modal && modalRender}
       </div>
-      <div className="mb-3 font-extralight">
-        mood: {currentPlaylist.mood} | {currentPlaylist.playlist_songs.length}{" "}
-        songs
+      <div className="mb-3 font-extralight text-lg">
+        <span className="text-emerald-300">mood </span>- {currentPlaylist.mood}{" "}
+        | {currentPlaylist.playlist_songs.length} songs
       </div>
-      <div className="mb-3 font-extralight">by: {currentPlaylist.username}</div>
-      {currentUser.id === playlist.user_id ? (
-        <>
-          <DnDContainer
-            cardRender={cardRender}
-            canRemove={canRemove}
-            setPlaylist={setPlaylist}
-            playlist={playlist}
-          />
-
-          <div className=" text-lg font-bold">Recommended</div>
-          <div className="text-xs font-light mb-5">
-            Based on what's in this playlist
-          </div>
-          {songSuggestions}
-        </>
-      ) : (
-        <>{nonOwnerPlaylist}</>
-      )}
+      <div className="mb-3 font-extralight text-lg">
+        <span className="font-light text-zinc-500">by </span>
+        <span className="font-semibold text-zinc-200">
+          {currentPlaylist.username}
+        </span>
+      </div>
+      {currentUser.id === playlist.user_id ? ownerPlaylist : nonOwnerPlaylist}
     </div>
   );
 }

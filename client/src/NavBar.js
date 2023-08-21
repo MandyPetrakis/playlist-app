@@ -19,6 +19,8 @@ export default function NavBar({ setShowLogIn }) {
   const activeStyle =
     "text-emerald-400 underline underline-offset-4 decoration-4 cursor-default";
 
+  const inactiveStyle = "relative hover:bottom-1";
+
   const logo = (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -31,12 +33,14 @@ export default function NavBar({ setShowLogIn }) {
   );
 
   return (
-    <div className="md:grid md:w-72 p-10 flex justify-between">
+    <div className="md:grid md:w-72 p-10 flex justify-between md:fixed">
       {logo}
       <div className="flex items-center md:items-start md:flex-col float-right md:float-left sm:text-xl font-light text-md">
-        <div className="mr-5 md:mb-5">
+        <div className="mr-5 md:mb-5 ">
           <NavLink
-            className={(navData) => (navData.isActive ? activeStyle : null)}
+            className={(navData) =>
+              navData.isActive ? activeStyle : inactiveStyle
+            }
             to="/"
           >
             Home
@@ -44,7 +48,9 @@ export default function NavBar({ setShowLogIn }) {
         </div>
         <div className="mr-5 md:mb-5">
           <NavLink
-            className={(navData) => (navData.isActive ? activeStyle : null)}
+            className={(navData) =>
+              navData.isActive ? activeStyle : inactiveStyle
+            }
             to="/library"
           >
             Your Library
@@ -52,7 +58,9 @@ export default function NavBar({ setShowLogIn }) {
         </div>
         <div className="mr-5 md:mb-5">
           <NavLink
-            className={(navData) => (navData.isActive ? activeStyle : null)}
+            className={(navData) =>
+              navData.isActive ? activeStyle : inactiveStyle
+            }
             to="/explore"
           >
             Explore
@@ -60,14 +68,16 @@ export default function NavBar({ setShowLogIn }) {
         </div>
         <div className="mr-5 md:mb-5">
           <NavLink
-            className={(navData) => (navData.isActive ? activeStyle : null)}
+            className={(navData) =>
+              navData.isActive ? activeStyle : inactiveStyle
+            }
             to="/account"
           >
             Account
           </NavLink>
         </div>
         <div
-          className="text-sm cursor-pointer bg-emerald-400 px-3 py-1 rounded text-zinc-800 font-semibold whitespace-nowrap"
+          className="text-sm cursor-pointer bg-emerald-400 px-3 py-1 rounded text-zinc-800 font-semibold whitespace-nowrap opacity-50 hover:opacity-100 transition-colors"
           onClick={handleLogOut}
         >
           Log Out

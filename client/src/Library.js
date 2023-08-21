@@ -150,7 +150,7 @@ export default function Library() {
   return (
     <div>
       <div className="text-3xl text-emerald-300 mb-1">Your Playlists</div>
-      <div className="flex overflow-scroll scrollbar-hide mb-5 border-b-2 p-2 border-zinc-700">
+      <div className="flex overflow-scroll scrollbar-hide mb-5 p-2 border-b-2  border-zinc-700">
         {createPlaylistDiv}
         {creatingNew ? createPlaylistForm : null}
         {yourPlaylists}
