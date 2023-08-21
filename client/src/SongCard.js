@@ -1,13 +1,21 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function SongCard({
   song,
   playlist,
   setPlaylist,
+  moreOptions,
   cardRender,
   canAdd,
 }) {
-  const [wasAdded, setAdded] = useState(false);
+  const [modal, setModal] = useState();
+  let navigate = useNavigate();
+
+  function routeChange(playlistId) {
+    let path = `/${playlistId}`;
+    navigate(path);
+  }
 
   function handleAdd() {
     let addedSong = {
@@ -25,9 +33,12 @@ export default function SongCard({
       .then((r) => r.json())
       .then((data) => {
         setPlaylist(data);
-        setAdded(true);
         cardRender(data);
       });
+  }
+
+  function toggleModal() {
+    setModal(!modal);
   }
 
   const addButton = (
@@ -50,8 +61,59 @@ export default function SongCard({
     </div>
   );
 
+  const menuButton = (
+    <div
+      className="group-hover:visible invisible cursor-pointer"
+      onClick={toggleModal}
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        className="w-6 h-6"
+      >
+        <path
+          fillRule="evenodd"
+          d="M4.5 12a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zm6 0a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zm6 0a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0z"
+          clipRule="evenodd"
+        />
+      </svg>
+    </div>
+  );
+
+  const modalRender = () => {
+    const appearsOn = song.playlists.map((p) => (
+      <div
+        key={p.id}
+        className="uppercase ml-2 cursor-pointer hover:text-emerald-200 "
+        onClick={() => routeChange(p.id)}
+      >
+        {p.title}
+      </div>
+    ));
+
+    return (
+      <div key={Math.random}>
+        <div
+          onClick={toggleModal}
+          className="z-10 w-full h-full top-0 left-0 right-0 bottom-0 fixed"
+        ></div>
+        <div
+          onClick={() => {
+            toggleModal();
+          }}
+          className="w-screen h-screen top-0 left-0 right-0 bottom-0 fixed"
+        ></div>
+        <div className="z-20 absolute right-11 bottom-9 bg-zinc-700 p-8 rounded max-w-md min-w-md grid place-content-center">
+          <div className="text-emerald-500 font-semibold">Appears on</div>
+          {appearsOn}
+        </div>
+      </div>
+    );
+  };
+
   return (
-    <div className="group flex mb-1 px-5 py-3 items-center w-full rounded hover:bg-zinc-800 transition-colors">
+    <div className="group flex relative mb-1 px-5 py-3 items-center w-full rounded hover:bg-zinc-800 transition-colors">
       {canAdd ? addButton : null}
       <img
         className="w-14 mr-5"
@@ -67,7 +129,9 @@ export default function SongCard({
           {song.artist}
         </span>
       </div>
-      <div className="">{song.length}</div>
+      <div className="mr-5">{song.length}</div>
+      {moreOptions ? menuButton : null}
+      {modal ? modalRender() : null}
     </div>
   );
 }

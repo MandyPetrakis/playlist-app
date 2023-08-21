@@ -6,10 +6,10 @@ import Home from "./Home";
 import Account from "./Account";
 import Explore from "./Explore";
 import Library from "./Library";
-import ViewPlaylist, { playlistLoader } from "./ViewPlaylist";
+import ViewPlaylist, { viewPlaylistLoader } from "./ViewPlaylist";
 import ContextProvider from "./Context";
 import { playlistsLoader } from "./Home";
-import { playlistL } from "./ViewPlaylist";
+import { vPlaylistLoader } from "./ViewPlaylist";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 const router = createBrowserRouter([
@@ -29,12 +29,11 @@ const router = createBrowserRouter([
       {
         path: "/library",
         element: <Library />,
-        loader: playlistsLoader,
       },
       {
         element: <ViewPlaylist />,
         path: ":playlistId",
-        loader: playlistL,
+        loader: vPlaylistLoader,
       },
       {
         element: <Explore />,

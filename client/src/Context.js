@@ -20,6 +20,7 @@ export default function ContextProvider({ children }) {
   const [currentUser, setCurrentUser] = useState();
   const [songs, setSongs] = useState([]);
   const [cards, setCards] = useState([]);
+  const [userPlaylists, setUserPlaylists] = useState([]);
 
   useEffect(() => {
     fetch("/songs")

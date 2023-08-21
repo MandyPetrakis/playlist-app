@@ -1,15 +1,22 @@
 Rails.application.routes.draw do
   
   resources :songs
+
   resources :playlist_songs
+
   resources :playlists
-  resources :users do
-    resources :playlists, only: :index
+
+  resources :users
+
+  resources :users, only: [:show] do
+    resources :playlists, only: [:show, :index]
   end
+
   get '/email', to: 'users#email'
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
   get "/me", to: "users#logged_in"
+  
 
 
 

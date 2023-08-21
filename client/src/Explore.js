@@ -12,11 +12,13 @@ export default function Explore() {
   const [visibleSongs, setVisibleSongs] = useState(20);
   const playlists = useLoaderData();
 
-  const explorePlaylists = playlists.map((p) => <PlaylistCard playlist={p} />);
+  const explorePlaylists = playlists.map((p) => (
+    <PlaylistCard key={p.id} playlist={p} />
+  ));
 
   const exploreSongs = songs
     .slice(0, visibleSongs)
-    .map((s) => <SongCard key={s.id} song={s} />);
+    .map((s) => <SongCard key={s.id} moreOptions={true} song={s} />);
 
   function handleAddSong(e) {
     e.preventDefault();
@@ -53,20 +55,25 @@ export default function Explore() {
       <div>
         <form onSubmit={handleAddSong}>
           <input
-            className="bg-transparent focus:outline-none mb-1"
+            className={`bg-transparent focus:outline-none mb-1 ${
+              errors ? "placeholder-red-500" : null
+            }`}
             type="text"
             value={songTitle}
-            placeholder="Title"
+            placeholder={`${errors ? "*Title" : "Title"}`}
             onChange={(e) => setSongTitle(e.target.value)}
           />
           <br />
           <input
-            className="bg-transparent focus:outline-none"
+            className={`bg-transparent focus:outline-none mb-1 ${
+              errors ? "placeholder-red-500" : null
+            }`}
             type="text"
             value={artist}
-            placeholder="Artist"
+            placeholder={`${errors ? "*Artist" : "Artist"}`}
             onChange={(e) => setArtist(e.target.value)}
           />
+          <button></button>
         </form>
       </div>
       <button>

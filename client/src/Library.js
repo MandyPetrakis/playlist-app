@@ -1,12 +1,10 @@
 import { useCurrentUser } from "./Context";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import SongCard from "./SongCard";
 import PlaylistCard from "./PlaylistCard";
-import { useLoaderData } from "react-router-dom";
 
 export default function Library() {
-  let playlists = useLoaderData();
-  const [renderPlaylists, setRenderPlaylists] = useState(playlists);
+  const [renderPlaylists, setRenderPlaylists] = useState([]);
   const [currentUser] = useCurrentUser();
   const [creatingNew, setCreatingNew] = useState(false);
   const [title, setTitle] = useState("");
@@ -14,12 +12,22 @@ export default function Library() {
   const [image, setImage] = useState("");
   const [errors, setErrors] = useState();
 
+  useEffect(() => {
+    fetch(`/users/${currentUser.id}/playlists`).then((response) => {
+      if (response.ok) {
+        response.json().then((playlists) => {
+          setRenderPlaylists(playlists);
+        });
+      }
+    });
+  }, []);
+
   const yourPlaylists = renderPlaylists
     .filter((p) => p.user_id === currentUser.id)
     .map((p) => <PlaylistCard key={p.id} playlist={p} hideUser={true} />);
 
   const likedSongs = currentUser.liked_songs.map((s) => (
-    <SongCard key={s.id} song={s} canAdd={false} />
+    <SongCard key={s.id} moreOptions={false} song={s} canAdd={false} />
   ));
 
   const createPlaylistDiv = (

@@ -5,7 +5,7 @@ import { useLoaderData } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-export const playlistL = async ({ params }) => {
+export const vPlaylistLoader = async ({ params }) => {
   const res = await fetch(`/playlists/${params.playlistId}`);
   const playlist = await res.json();
   return playlist;
@@ -74,8 +74,6 @@ export default function ViewPlaylist() {
 
   function toggleModal() {
     setModal(!modal);
-    setPlaylistName(playlist.title);
-    setPlaylistMood(playlist.mood);
   }
 
   const ownerMenuOptions = (
