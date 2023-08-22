@@ -19,7 +19,7 @@ export default function NavBar({ setShowLogIn }) {
   const activeStyle =
     "text-emerald-400 underline underline-offset-4 decoration-4 cursor-default";
 
-  const inactiveStyle = "relative hover:bottom-1";
+  const inactiveStyle = "relative group-hover:bottom-1";
 
   const logo = (
     <svg
@@ -36,7 +36,7 @@ export default function NavBar({ setShowLogIn }) {
     <div className="md:grid md:w-72 p-10 flex justify-between md:fixed">
       {logo}
       <div className="flex items-center md:items-start md:flex-col float-right md:float-left sm:text-xl font-light text-md">
-        <div className="mr-5 md:mb-5 ">
+        <div className="mr-5 md:mb-5 group">
           <NavLink
             className={(navData) =>
               navData.isActive ? activeStyle : inactiveStyle
@@ -46,7 +46,7 @@ export default function NavBar({ setShowLogIn }) {
             Home
           </NavLink>
         </div>
-        <div className="mr-5 md:mb-5 whitespace-nowrap">
+        <div className="mr-5 md:mb-5 whitespace-nowrap group">
           <NavLink
             className={(navData) =>
               navData.isActive ? activeStyle : inactiveStyle
@@ -56,7 +56,7 @@ export default function NavBar({ setShowLogIn }) {
             Your Library
           </NavLink>
         </div>
-        <div className="mr-5 md:mb-5">
+        <div className="mr-5 md:mb-5 group">
           <NavLink
             className={(navData) =>
               navData.isActive ? activeStyle : inactiveStyle
@@ -66,7 +66,7 @@ export default function NavBar({ setShowLogIn }) {
             Explore
           </NavLink>
         </div>
-        <div className="mr-5 md:mb-5">
+        <div className="mr-5 md:mb-5 group">
           <NavLink
             className={(navData) =>
               navData.isActive ? activeStyle : inactiveStyle
@@ -77,7 +77,7 @@ export default function NavBar({ setShowLogIn }) {
           </NavLink>
         </div>
         <div
-          className="text-sm cursor-pointer bg-emerald-400 px-3 py-1 rounded text-zinc-800 font-semibold whitespace-nowrap opacity-50 hover:opacity-100 transition-colors"
+          className="text-sm cursor-pointer bg-emerald-400 px-3 py-1 rounded text-zinc-800 font-semibold whitespace-nowrap opacity-70 hover:opacity-100 transition-colors"
           onClick={handleLogOut}
         >
           Log Out

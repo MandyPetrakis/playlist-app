@@ -85,10 +85,12 @@ export default function SongCard({
     const appearsOn = song.playlists.map((p) => (
       <div
         key={p.id}
-        className="uppercase ml-2 cursor-pointer hover:text-emerald-200 "
+        className="ml-2 cursor-pointer mb-1 hover:underline"
         onClick={() => routeChange(p.id)}
       >
-        {p.title}
+        <span className="uppercase text-emerald-300 ">{p.title}</span>{" "}
+        <span className=" text-zinc-400">by</span>{" "}
+        <span className="lowercase">{p.username}</span>
       </div>
     ));
 
@@ -104,9 +106,13 @@ export default function SongCard({
           }}
           className="w-screen h-screen top-0 left-0 right-0 bottom-0 fixed"
         ></div>
-        <div className="z-20 absolute right-11 bottom-9 bg-zinc-700 p-8 rounded max-w-md min-w-md grid place-content-center">
-          <div className="text-emerald-500 font-semibold">Appears on</div>
-          {appearsOn}
+        <div className="z-20 absolute right-11 bottom-9 bg-zinc-600 p-8 rounded max-w-md min-w-md grid place-content-center">
+          <div className="text-emerald-400 font-semibold mb-3">Appears on</div>
+          {appearsOn.length === 0 ? (
+            <span className="text-zinc-300">Not saved to any playlists</span>
+          ) : (
+            appearsOn
+          )}
         </div>
       </div>
     );
