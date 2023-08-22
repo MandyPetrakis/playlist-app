@@ -76,21 +76,22 @@ export default function ViewPlaylist() {
     setModal(!modal);
   }
 
-  const ownerMenuOptions = (
-    <>
-      <div onClick={() => setModal(!modal)}>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-          fill="currentColor"
-          className={` hover:text-emerald-500 w-7 h-7 mx-5 cursor-pointer ${
-            modal ? " text-emerald-500" : "text-emerald-300"
-          } `}
-        >
-          <path d="M21.731 2.269a2.625 2.625 0 00-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 000-3.712zM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 00-1.32 2.214l-.8 2.685a.75.75 0 00.933.933l2.685-.8a5.25 5.25 0 002.214-1.32L19.513 8.2z" />
-        </svg>
-      </div>
-    </>
+  const editIcon = (
+    <div
+      className="invisible group-hover:visible "
+      onClick={() => setModal(!modal)}
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        className={` hover:text-emerald-500 w-7 h-7 mx-5 cursor-pointer ${
+          modal ? " text-emerald-500" : "text-emerald-300"
+        } `}
+      >
+        <path d="M21.731 2.269a2.625 2.625 0 00-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 000-3.712zM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 00-1.32 2.214l-.8 2.685a.75.75 0 00.933.933l2.685-.8a5.25 5.25 0 002.214-1.32L19.513 8.2z" />
+      </svg>
+    </div>
   );
 
   const modalRender = (
@@ -153,6 +154,7 @@ export default function ViewPlaylist() {
       <SongCard
         key={s.id}
         song={s}
+        moreOptions={true}
         playlist={playlist}
         setPlaylist={setPlaylist}
         cardRender={cardRender}
@@ -191,9 +193,9 @@ export default function ViewPlaylist() {
 
   return (
     <div className={`${modal ? "fixed overflow-hidden" : null} w-full`}>
-      <div className="flex content-stretch">
+      <div className="flex content-stretch group">
         <span className="text-5xl uppercase">{playlist.title}</span>
-        {canRemove ? ownerMenuOptions : null}
+        {canRemove ? editIcon : null}
         {modal && modalRender}
       </div>
       <div className="mb-3 font-extralight text-lg">

@@ -93,7 +93,7 @@ export default function SongCard({
     ));
 
     return (
-      <div key={Math.random}>
+      <div key={song.id}>
         <div
           onClick={toggleModal}
           className="z-10 w-full h-full top-0 left-0 right-0 bottom-0 fixed"

@@ -5,8 +5,8 @@ import App from "./App";
 import Home from "./Home";
 import Account from "./Account";
 import Explore from "./Explore";
-import Library from "./Library";
-import ViewPlaylist, { viewPlaylistLoader } from "./ViewPlaylist";
+import Library, { userPlaylistsLoader } from "./Library";
+import ViewPlaylist from "./ViewPlaylist";
 import ContextProvider from "./Context";
 import { playlistsLoader } from "./Home";
 import { vPlaylistLoader } from "./ViewPlaylist";
@@ -29,6 +29,7 @@ const router = createBrowserRouter([
       {
         path: "/library",
         element: <Library />,
+        loader: userPlaylistsLoader,
       },
       {
         element: <ViewPlaylist />,

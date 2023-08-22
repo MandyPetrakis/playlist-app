@@ -23,6 +23,20 @@ function App() {
     });
   }, []);
 
+  const loadingIndicator = (
+    <div className="grid place-content-center mt-32 md:mt-40 md:col-span-4">
+      <Bars
+        height="80"
+        width="80"
+        color="rgb(52 211 153)"
+        ariaLabel="bars-loading"
+        wrapperStyle={{}}
+        wrapperClass=""
+        visible={true}
+      />
+    </div>
+  );
+
   return (
     <div className="text-gray-200 bg-black">
       {showLogIn ? (
@@ -33,17 +47,7 @@ function App() {
             <NavBar setShowLogIn={setShowLogIn} />
           </div>
           {navigation.state === "loading" ? (
-            <div className="grid place-content-center mt-32 md:mt-40 md:col-span-4">
-              <Bars
-                height="80"
-                width="80"
-                color="rgb(52 211 153)"
-                ariaLabel="bars-loading"
-                wrapperStyle={{}}
-                wrapperClass=""
-                visible={true}
-              />
-            </div>
+            loadingIndicator
           ) : (
             <div className="md:col-span-4 px-10 md:py-16">
               <DndProvider backend={HTML5Backend}>

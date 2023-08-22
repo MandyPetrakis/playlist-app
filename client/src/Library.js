@@ -1,26 +1,24 @@
 import { useCurrentUser } from "./Context";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import SongCard from "./SongCard";
 import PlaylistCard from "./PlaylistCard";
+import { useLoaderData } from "react-router-dom";
+
+export const userPlaylistsLoader = async () => {
+  const res = await fetch(`/user/playlists`);
+  const playlists = await res.json();
+  return playlists;
+};
 
 export default function Library() {
-  const [renderPlaylists, setRenderPlaylists] = useState([]);
+  const playlists = useLoaderData();
   const [currentUser] = useCurrentUser();
+  const [renderPlaylists, setRenderPlaylists] = useState(playlists);
   const [creatingNew, setCreatingNew] = useState(false);
   const [title, setTitle] = useState("");
   const [mood, setMood] = useState("");
   const [image, setImage] = useState("");
   const [errors, setErrors] = useState();
-
-  useEffect(() => {
-    fetch(`/users/${currentUser.id}/playlists`).then((response) => {
-      if (response.ok) {
-        response.json().then((playlists) => {
-          setRenderPlaylists(playlists);
-        });
-      }
-    });
-  }, []);
 
   const yourPlaylists = renderPlaylists
     .filter((p) => p.user_id === currentUser.id)

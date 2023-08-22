@@ -13,9 +13,11 @@ skip_before_action :authorize, only: [:index,:show]
     end
 
     def create
-        playlist_song = PlaylistSong.create!(playlist_song_params)
-        playlist = Playlist.find(params[:playlist_id])
-        render json: playlist, status: :created
+            playlist_song = PlaylistSong.create!(playlist_song_params)
+            playlist = Playlist.find(params[:playlist_id])
+            render json: playlist, status: :created
+
+        end
     end
 
     def update
@@ -25,7 +27,6 @@ skip_before_action :authorize, only: [:index,:show]
     end
 
     def destroy
-        playlist_song = PlaylistSong.find(params[:id])
         playlist_song.destroy
         playlist = Playlist.find(playlist_song.playlist_id)
         render json: playlist
@@ -38,8 +39,8 @@ end
 
 def authorize
     if params[:id]
-    playlist_song = PlaylistSong.find(params[:id])
-    return render json: [error: "Not Authorized"], status: :unauthorized unless session[:user_id] === playlist_song.user_id
+        playlist_song = PlaylistSong.find(params[:id])
+        return render json: [error: "Not Authorized"], status: :unauthorized unless session[:user_id] === playlist_song.user_id
     else
         playlist = Playlist.find(params[:playlist_id])
     return render json: [error: "Not Authorized"], status: :unauthorized unless session[:user_id] === playlist.user_id
@@ -48,6 +49,4 @@ def authorize
 end
 
 
-
-    # verify user owns the playlist_song through playlist
 end

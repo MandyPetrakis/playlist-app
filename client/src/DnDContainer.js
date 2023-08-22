@@ -26,7 +26,7 @@ export function DnDContainer({ cardRender, canRemove, setPlaylist, playlist }) {
 
       if (song.order === order) return;
       else {
-        let update = { order: order, user_id: c.user_id };
+        let update = { order: order };
 
         fetch(`/playlist_songs/${song.id}`, {
           method: "PATCH",

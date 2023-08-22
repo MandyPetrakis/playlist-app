@@ -42,6 +42,13 @@ class UsersController < ApplicationController
             render json: {error: "Not authorized"}, status: :unauthorized
         end
     end
+
+    def playlists 
+        user = User.find(session[:user_id])
+        playlists = user.playlists
+        render json: playlists, status: :ok
+    end
+    
 private
 
 
