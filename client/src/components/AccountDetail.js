@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useCurrentUser } from "./Context";
+import { useCurrentUser } from "../Context";
 
 export default function AccountDetail({ data, label, param }) {
   const [edit, setEdit] = useState(false);
@@ -63,7 +63,7 @@ export default function AccountDetail({ data, label, param }) {
       <span className="uppercase font-light text-md md:text-lg">{input}</span>
       <button
         onClick={() => setEdit(!edit)}
-        className="bg-emerald-500 rounded-full px-2 py-1 text-xs text-black font-semibold md:text-sm w-16 opacity-50 hover:opacity-100"
+        className="bg-emerald-400 rounded-full px-2 py-1 text-xs text-zinc-300 font-semibold md:text-sm w-16 opacity-80 hover:opacity-100"
       >
         Edit
       </button>

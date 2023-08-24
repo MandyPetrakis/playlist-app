@@ -2,14 +2,14 @@ import React from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App";
-import Home from "./Home";
-import Account from "./Account";
-import Explore from "./Explore";
-import Library, { userPlaylistsLoader } from "./Library";
-import ViewPlaylist from "./ViewPlaylist";
+import Home from "./pages/Home";
+import Account from "./pages/Account";
+import Explore from "./pages/Explore";
+import Library, { userPlaylistsLoader } from "./pages/Library";
+import ViewPlaylist from "./pages/ViewPlaylist";
 import ContextProvider from "./Context";
-import { playlistsLoader } from "./Home";
-import { vPlaylistLoader } from "./ViewPlaylist";
+import { playlistsLoader } from "./pages/Home";
+import { vPlaylistLoader } from "./pages/ViewPlaylist";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 const router = createBrowserRouter([

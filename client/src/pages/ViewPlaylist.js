@@ -1,6 +1,6 @@
-import { useCurrentUser, useSongs, useCards } from "./Context";
-import SongCard from "./SongCard";
-import { DnDContainer } from "./DnDContainer";
+import { useCurrentUser, useSongs, useCards } from "../Context";
+import SongCard from "../components/SongCard";
+import { DnDContainer } from "../components/DnDContainer";
 import { useLoaderData } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";

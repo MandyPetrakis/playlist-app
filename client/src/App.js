@@ -1,5 +1,5 @@
-import Auth from "./Auth";
-import NavBar from "./NavBar";
+import Auth from "./pages/Auth";
+import NavBar from "./components/NavBar";
 import { useCurrentUser } from "./Context";
 import { useState, useEffect } from "react";
 import { Outlet, useNavigation } from "react-router-dom";

@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import PlaylistSongCard from "./PlaylistSongCard.js";
 import { useDrag, useDrop } from "react-dnd";
-import { ItemTypes } from "./ItemTypes.js";
+import { ItemTypes } from "../ItemTypes.js";
 
 export const DnDCard = ({
   id,

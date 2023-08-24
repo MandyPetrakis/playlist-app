@@ -1,8 +1,9 @@
-import { useCurrentUser } from "./Context";
+import { useCurrentUser } from "../Context";
 import { useState } from "react";
+import { Bars } from "react-loader-spinner";
 
 export default function Auth({ setShowLogIn }) {
-  const [currentUser, setCurrentUser] = useCurrentUser();
+  const [_, setCurrentUser] = useCurrentUser();
   const [newUser, setNewUser] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -32,6 +33,8 @@ export default function Auth({ setShowLogIn }) {
           r.json().then((user) => {
             setCurrentUser(user);
             setShowLogIn(false);
+            setEmail("");
+            setPassword("");
           });
         } else {
           r.json().then((e) => {
@@ -53,9 +56,13 @@ export default function Auth({ setShowLogIn }) {
       }).then((r) => {
         if (r.ok) {
           r.json().then((user) => {
-            console.log("user", user);
             setCurrentUser(user);
             setShowLogIn(false);
+            setEmail("");
+            setPassword("");
+            setPasswordConfirmation("");
+            setUsername("");
+            setFirstName("");
           });
         } else {
           r.json().then((e) => {
@@ -64,12 +71,21 @@ export default function Auth({ setShowLogIn }) {
         }
       });
     }
-    setEmail("");
-    setPassword("");
-    setPasswordConfirmation("");
-    setUsername("");
-    setFirstName("");
   }
+
+  const bars = (
+    <div className="grid place-content-center mb-10">
+      <Bars
+        height="80"
+        width="80"
+        color="rgb(52 211 153)"
+        ariaLabel="bars-loading"
+        wrapperStyle={{}}
+        wrapperClass=""
+        visible={true}
+      />
+    </div>
+  );
 
   const returningUserInputs = (
     <>
@@ -180,8 +196,8 @@ export default function Auth({ setShowLogIn }) {
 
   return (
     <>
-      {/* <div className="w-screen h-screen z-0 bg-no-repeat bg-fixed bg-[url('https://3.bp.blogspot.com/-HcabgU2G8SI/V6EXnr4JDHI/AAAAAAAAGrM/W34Dy1pZDB8VPgCv68NsAGjkNTUkUeyZgCLcB/s1600/TM14_web.jpg')]"></div> */}
-      <div className="grid place-content-center bg-cover p-20 w-screen h-screen z-0">
+      <div className="grid place-content-center bg-cover px-20 py-10 w-screen h-screen z-0">
+        {bars}
         <div className="flex w-80 py-16 px-10 place-content-center rounded bg-zinc-900">
           <form className="flex flex-col" onSubmit={handleSubmit}>
             {returningUserInputs}

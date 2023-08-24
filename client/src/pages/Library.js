@@ -1,7 +1,7 @@
-import { useCurrentUser } from "./Context";
+import { useCurrentUser } from "../Context";
 import { useState } from "react";
-import SongCard from "./SongCard";
-import PlaylistCard from "./PlaylistCard";
+import SongCard from "../components/SongCard";
+import PlaylistCard from "../components/PlaylistCard";
 import { useLoaderData } from "react-router-dom";
 
 export const userPlaylistsLoader = async () => {

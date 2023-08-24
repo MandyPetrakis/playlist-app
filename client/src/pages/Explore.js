@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { useSongs } from "./Context";
-import SongCard from "./SongCard";
+import { useSongs } from "../Context";
+import SongCard from "../components/SongCard";
 import { useLoaderData } from "react-router-dom";
-import PlaylistCard from "./PlaylistCard";
+import PlaylistCard from "../components/PlaylistCard";
 
 export default function Explore() {
   const [songTitle, setSongTitle] = useState("");

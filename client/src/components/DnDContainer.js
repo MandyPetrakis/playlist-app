@@ -1,7 +1,7 @@
 import update from "immutability-helper";
 import { useCallback, useState } from "react";
 import { DnDCard } from "./DnDCard";
-import { useCards } from "./Context";
+import { useCards } from "../Context";
 
 export function DnDContainer({ cardRender, canRemove, setPlaylist, playlist }) {
   const [wasMoved, setWasMoved] = useState(false);

@@ -1,5 +1,5 @@
-import { useCurrentUser } from "./Context";
-import AccountDetail from "./AccountDetail";
+import { useCurrentUser } from "../Context";
+import AccountDetail from "../components/AccountDetail";
 
 export default function Account() {
   const [currentUser, setCurrentUser] = useCurrentUser();

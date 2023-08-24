@@ -8,9 +8,6 @@ Rails.application.routes.draw do
 
   resources :users
 
-  resources :users, only: [:show] do
-    resources :playlists, only: [:show, :index]
-  end
 
   get '/email', to: 'users#email'
   post '/login', to: 'sessions#create'
