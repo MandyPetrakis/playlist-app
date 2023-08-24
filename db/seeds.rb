@@ -91,7 +91,7 @@ images = [
 ]
 
 300.times do
-    Song.create(title: Faker::Book.title, artist: Faker::Music.band, length: "3:45", image: images.sample)
+    Song.create(title: Faker::Book.title, artist: Faker::Music.band, length: "%{min}:%{sec}" % {min:Faker::Number.between(from: 1, to: 9), sec:Faker::Number.between(from: 10, to:59)}, image: images.sample)
 end
 
 

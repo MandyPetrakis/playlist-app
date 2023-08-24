@@ -8,12 +8,16 @@ export default function PlaylistSongCard({
   function handleDelete() {
     fetch(`/playlist_songs/${playlist_song.id}`, {
       method: "DELETE",
-    })
-      .then((r) => r.json())
-      .then((data) => {
-        setPlaylist(data);
-        cardRender(data);
-      });
+    }).then((r) => {
+      if (r.ok) {
+        r.json().then((data) => {
+          setPlaylist(data);
+          cardRender(data);
+        });
+      } else {
+        r.json().then((data) => console.log(data));
+      }
+    });
   }
 
   const removeSongButton = (

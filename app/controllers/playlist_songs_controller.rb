@@ -16,8 +16,6 @@ skip_before_action :authorize, only: [:index,:show]
             playlist_song = PlaylistSong.create!(playlist_song_params)
             playlist = Playlist.find(params[:playlist_id])
             render json: playlist, status: :created
-
-        end
     end
 
     def update
@@ -27,10 +25,12 @@ skip_before_action :authorize, only: [:index,:show]
     end
 
     def destroy
-        playlist_song.destroy
+        playlist_song = PlaylistSong.find(params[:id])
         playlist = Playlist.find(playlist_song.playlist_id)
+        playlist_song.destroy
         render json: playlist
     end
+    
 private
 
 def playlist_song_params
