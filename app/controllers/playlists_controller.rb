@@ -1,6 +1,6 @@
 class PlaylistsController < ApplicationController
     before_action :authorize
-    skip_before_action :authorize, only: [:index, :show]
+    skip_before_action :authorize, only: [:index, :show, :create]
 
     def index
         if params[:user_id]
@@ -19,7 +19,8 @@ class PlaylistsController < ApplicationController
     end
 
     def create
-        playlist = Playlist.create!(playlist_params)
+        user = User.find(session[:user_id])
+        playlist = user.playlists.create!(playlist_params)
         render json: playlist, status: :created
     end
 
@@ -48,6 +49,6 @@ class PlaylistsController < ApplicationController
     end
 
     def playlist_params
-        params.permit(:user_id, :title, :mood, :length)
+        params.permit( :title, :mood, :length)
     end
 end

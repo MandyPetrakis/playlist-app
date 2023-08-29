@@ -18,9 +18,10 @@ export default function ViewPlaylist() {
   const [currentUser] = useCurrentUser();
   const canRemove = currentPlaylist.user_id === currentUser.id;
   const [_, setCards] = useCards();
-  const [modal, setModal] = useState(false);
   const [playlistName, setPlaylistName] = useState(playlist.title);
   const [playlistMood, setPlaylistMood] = useState(playlist.mood);
+  const [editing, setEditing] = useState(false);
+  const [showOptions, setShowOptions] = useState(false);
 
   let navigate = useNavigate();
 
@@ -54,7 +55,8 @@ export default function ViewPlaylist() {
       .then((r) => r.json())
       .then((data) => {
         setPlaylist(data);
-        toggleModal();
+        setEditing(false);
+        setShowOptions(false);
       });
   }
 
@@ -72,77 +74,105 @@ export default function ViewPlaylist() {
     cardRender(playlist);
   }, []);
 
-  function toggleModal() {
-    setModal(!modal);
-  }
-
-  const editIcon = (
-    <div
-      className="invisible group-hover:visible "
-      onClick={() => setModal(!modal)}
-    >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24"
-        fill="currentColor"
-        className={` hover:text-emerald-500 w-7 h-7 mx-5 cursor-pointer ${
-          modal ? " text-emerald-500" : "text-emerald-300"
-        } `}
-      >
-        <path d="M21.731 2.269a2.625 2.625 0 00-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 000-3.712zM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 00-1.32 2.214l-.8 2.685a.75.75 0 00.933.933l2.685-.8a5.25 5.25 0 002.214-1.32L19.513 8.2z" />
-      </svg>
+  const playlistDetails = (
+    <div className="w-96">
+      <span className="text-5xl uppercase">{playlist.title}</span>
+      <div className="mb-3 font-extralight text-lg">
+        <span className="text-emerald-300">mood </span>- {playlist.mood} |{" "}
+        {playlist.playlist_songs.length} songs
+      </div>
+      <div className="mb-3 font-extralight text-lg">
+        <span className="font-light text-zinc-500">by </span>
+        <span className="font-semibold text-zinc-200">{playlist.username}</span>
+      </div>
     </div>
   );
 
-  const modalRender = (
-    <div>
+  const playlistDetailsEdit = (
+    <div className="w-96 mr-5">
+      <form onSubmit={handleEdit}>
+        <input
+          autoFocus
+          className="border-b-2 border-zinc-700 text-5xl bg-inherit uppercase focus:outline-none leading-5 mb-2 text-white"
+          type="text"
+          placeholder={playlistName}
+          value={playlistName}
+          onChange={(e) => setPlaylistName(e.target.value)}
+        />
+        <br />
+
+        <span className="text-emerald-300">mood </span>
+        <input
+          className=" border-b-2 border-zinc-700 bg-inherit lowerercase focus:outline-none leading-5 text-white mb-3 font-extralight text-lg ml-5"
+          type="text"
+          placeholder={playlistMood}
+          value={playlistMood}
+          onChange={(e) => setPlaylistMood(e.target.value)}
+        />
+      </form>
+
+      <div className="mb-3 font-extralight text-lg">
+        <span className="font-light text-zinc-500">by </span>
+        <span className="font-semibold text-zinc-200">{playlist.username}</span>
+      </div>
+    </div>
+  );
+
+  const moreOptionsIcon = (
+    <div
+      className="invisible group-hover:visible w-44"
+      onClick={() => setShowOptions(!showOptions)}
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        strokeWidth={1.5}
+        stroke="currentColor"
+        className={` hover:text-emerald-500 w-14 h-14 ml-5 cursor-pointer 
+        } `}
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M6.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
+        />
+      </svg>
+    </div>
+  );
+  const moreOptions = (
+    <div className="grid mr-5 text-sm w-44 relative pr-10 pt-10">
+      <button
+        onClick={editing ? (e) => handleEdit(e) : () => setEditing(true)}
+        className="text-zinc-900 mb-5 rounded  px-2 py-1 bg-emerald-400"
+      >
+        {editing ? "Save" : "Edit Details"}
+      </button>
+      <button
+        onClick={() => handleDelete()}
+        className="cursor-pointer bg-red-700 px-2 py-1 rounded text-zinc-300 whitespace-nowrap"
+      >
+        Delete Playlist
+      </button>
       <div
-        onClick={toggleModal}
-        className="w-full h-full top-0 left-0 right-0 bottom-0 fixed bg-emerald-900 opacity-40"
-      ></div>
-      <div className="absolute top-20 left-24 bg-zinc-900 p-10 rounded max-w-md min-w-md grid place-content-center">
-        <form className="grid mb-2" onSubmit={handleEdit}>
-          <label className="text-zinc-500 text-lg font-semibold">Title </label>
-          <input
-            className="text-2xl bg-inherit uppercase focus:outline-none leading-5 mb-2 text-white"
-            type="text"
-            placeholder={playlistName}
-            value={playlistName}
-            onChange={(e) => setPlaylistName(e.target.value)}
+        onClick={() => {
+          setEditing(false);
+          setShowOptions(false);
+        }}
+        className="absolute right-0 top-0 p-1 "
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          className="w-6 h-6 hover:text-red-400 cursor-pointer transition-colors"
+        >
+          <path
+            fillRule="evenodd"
+            d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm-1.72 6.97a.75.75 0 10-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 101.06 1.06L12 13.06l1.72 1.72a.75.75 0 101.06-1.06L13.06 12l1.72-1.72a.75.75 0 10-1.06-1.06L12 10.94l-1.72-1.72z"
+            clipRule="evenodd"
           />
-
-          <br />
-          <label className="text-zinc-500 text-lg font-semibold">Mood </label>
-          <input
-            className="text-2xl  bg-inherit lowerercase focus:outline-none leading-5 mb-5 text-white"
-            type="text"
-            placeholder={playlistMood}
-            value={playlistMood}
-            onChange={(e) => setPlaylistMood(e.target.value)}
-          />
-
-          <button className="bg-emerald-500 rounded px-2 py-1 ">
-            Save Details
-          </button>
-        </form>
-
-        <button onClick={() => handleDelete()} className="text-red-500 h-8">
-          Delete Playlist
-        </button>
-        <div className="absolute top-2.5 right-2.5" onClick={toggleModal}>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="currentColor"
-            className="w-6 h-6 group-hover:text-red-400"
-          >
-            <path
-              fillRule="evenodd"
-              d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm-1.72 6.97a.75.75 0 10-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 101.06 1.06L12 13.06l1.72 1.72a.75.75 0 101.06-1.06L13.06 12l1.72-1.72a.75.75 0 10-1.06-1.06L12 10.94l-1.72-1.72z"
-              clipRule="evenodd"
-            />
-          </svg>
-        </div>
+        </svg>
       </div>
     </div>
   );
@@ -191,22 +221,39 @@ export default function ViewPlaylist() {
     return <SongCard key={s.id} song={song} canAdd={false} />;
   });
 
+  const defaultImage = (
+    <img
+      className="border-2 border-emerald-400 rounded mr-5 w-52 h-52"
+      src="https://e1.pxfuel.com/desktop-wallpaper/389/930/desktop-wallpaper-spotify-playlist-cover-playlist-covers.jpg"
+      alt="playlist cover"
+    />
+  );
+
   return (
-    <div className={`${modal ? "fixed overflow-hidden" : null} w-full`}>
-      <div className="flex content-stretch group">
-        <span className="text-5xl uppercase">{playlist.title}</span>
-        {canRemove ? editIcon : null}
-        {modal && modalRender}
+    <div className="w-full">
+      <div className="flex justify-around items-center group mb-10">
+        {playlist.image ? (
+          <img
+            src={playlist.image}
+            className="border-2 border-emerald-400 rounded mr-5"
+          />
+        ) : (
+          defaultImage
+        )}
+        {editing ? playlistDetailsEdit : playlistDetails}
+        {canRemove ? (
+          showOptions ? (
+            moreOptions
+          ) : (
+            moreOptionsIcon
+          )
+        ) : (
+          <div className="invisible w-14"></div>
+        )}
       </div>
-      <div className="mb-3 font-extralight text-lg">
-        <span className="text-emerald-300">mood </span>- {playlist.mood} |{" "}
-        {playlist.playlist_songs.length} songs
+      <div className="px-16">
+        {currentUser.id === playlist.user_id ? ownerPlaylist : nonOwnerPlaylist}
       </div>
-      <div className="mb-3 font-extralight text-lg">
-        <span className="font-light text-zinc-500">by </span>
-        <span className="font-semibold text-zinc-200">{playlist.username}</span>
-      </div>
-      {currentUser.id === playlist.user_id ? ownerPlaylist : nonOwnerPlaylist}
     </div>
   );
 }

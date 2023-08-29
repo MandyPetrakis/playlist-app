@@ -22,12 +22,10 @@ export default function AccountDetail({ data, label, param }) {
         r.json().then((user) => {
           setCurrentUser(user);
           setEdit(!edit);
-          console.log(user);
         });
       } else {
         r.json().then((e) => {
           setErrors(e);
-          console.log(e);
         });
       }
     });
@@ -37,22 +35,25 @@ export default function AccountDetail({ data, label, param }) {
     <>
       <form className="flex justify-between">
         <input
+          autoFocus
           type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          className="uppercase mr-2 w-full font-light text-md md:text-lg bg-inherit text-white caret-inherit focus:outline-none"
+          className="uppercase mr-2 w-full font-light text-md md:text-lg bg-inherit text-white caret-inherit focus:outline-none border-b-2  border-zinc-700"
         />
         <button
           type="submit"
           onClick={handleSave}
-          className="bg-emerald-500 rounded-full font-semibold text-black px-2 py-1 text-xs md:text-sm w-16 opacity-100"
+          className="bg-emerald-500 rounded font-semibold text-zinc-100 px-2 py-1 text-sm w-20 opacity-90 hover:opacity-100"
         >
           Save
         </button>
       </form>
       <div>
         {errors
-          ? errors.errors.map((e) => <li className="text-red-500 mb-3">{e}</li>)
+          ? errors.errors.map((e) => (
+              <li className="text-red-500 list-none mt-1">{e}</li>
+            ))
           : null}
       </div>
     </>
@@ -60,10 +61,12 @@ export default function AccountDetail({ data, label, param }) {
 
   const detailRender = (
     <div className="flex justify-between">
-      <span className="uppercase font-light text-md md:text-lg">{input}</span>
+      <div className="uppercase font-light text-zinc-100 text-md md:text-lg overflow-scroll">
+        {input}
+      </div>
       <button
         onClick={() => setEdit(!edit)}
-        className="bg-emerald-400 rounded-full px-2 py-1 text-xs text-zinc-300 font-semibold md:text-sm w-16 opacity-80 hover:opacity-100"
+        className="bg-zinc-400 rounded shrink-0 px-2 py-1 text-sm text-zinc-900 font-semibold md:text-sm w-16 opacity-80 hover:opacity-100"
       >
         Edit
       </button>
@@ -72,7 +75,9 @@ export default function AccountDetail({ data, label, param }) {
 
   return (
     <div className="mb-5">
-      <span className="font-bold text-md text-gray-400">{label}</span>
+      <span className="font-semibold text-sm md:text-lg text-zinc-400 overflow-scroll">
+        {label}
+      </span>
       {edit ? editForm : detailRender}
     </div>
   );

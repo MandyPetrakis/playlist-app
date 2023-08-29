@@ -60,7 +60,7 @@ export function DnDContainer({ cardRender, canRemove, setPlaylist, playlist }) {
     <div className={`${wasMoved ? "pt-0 grid mb-10" : "pt-10 grid mb-10"}`}>
       {wasMoved ? (
         <button
-          className="bg-emerald-400 py-2 px-4 rounded w-40 place-self-center"
+          className="bg-emerald-400 py-2 px-4 rounded w-40 place-self-end"
           onClick={handleSave}
         >
           Save Order

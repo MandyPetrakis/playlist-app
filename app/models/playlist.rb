@@ -8,4 +8,14 @@ class Playlist < ApplicationRecord
     def username
         self.user.username
     end
+
+    def length
+        songs = self.songs 
+       lengths = songs.collect {|s| s.length }
+    #    lengths.each(|l| )
+    # split by : > ["3", "30"]
+    # split[0].to_i x 60 + split[1].to_i
+    # sum 
+    end
+
 end

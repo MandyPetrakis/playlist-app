@@ -13,6 +13,7 @@ class SongsController < ApplicationController
 
     def create 
         song = Song.create!(song_params)
+        song.length = "3:32"
         render json: song, status: :created
     end
 

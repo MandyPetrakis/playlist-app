@@ -10,7 +10,7 @@ export default function PlaylistCard({ playlist, hideUser }) {
 
   const defaultImage = (
     <img
-      className="rounded w-36 h-36 mb-1"
+      className="rounded w-36 h-36 mb-4"
       src="https://e1.pxfuel.com/desktop-wallpaper/389/930/desktop-wallpaper-spotify-playlist-cover-playlist-covers.jpg"
       alt="playlist cover"
     />
@@ -18,14 +18,19 @@ export default function PlaylistCard({ playlist, hideUser }) {
 
   const playlistDetails = (
     <>
-      <div className="uppercase font-semibold w-36 whitespace-nowrap text-ellipsis overflow-hidden">
+      <div
+        className="uppercase font-semibold w-36 whitespace-nowrap text-ellipsis overflow-hidden"
+        title={playlist.title}
+      >
         {playlist.title} <br />
       </div>
       <div className="text-sm font-light">
         <span className="text-emerald-300">mood</span> - {playlist.mood}
       </div>
-      {hideUser ? null : (
-        <div className="text-sm font-ligh"> by {playlist.username}</div>
+      {hideUser ? (
+        <div className="text-sm font-light invisible">placeholder</div>
+      ) : (
+        <div className="text-sm font-light"> by {playlist.username}</div>
       )}
     </>
   );
@@ -37,7 +42,7 @@ export default function PlaylistCard({ playlist, hideUser }) {
       viewBox="0 0 24 24"
       strokeWidth="1.5"
       stroke="currentColor"
-      className="bg-emerald-500 rounded-full w-10 p-2 opacity-0 group-hover:opacity-100 relative bottom-28 left-24 transition-opacity"
+      className="bg-emerald-500 rounded-full w-10 h-10 pl-2 pr-1 py-2 opacity-0 group-hover:opacity-100 relative group-hover:bottom-32 bottom-28 left-24 transition-all"
     >
       <path
         strokeLinecap="round"
@@ -49,14 +54,14 @@ export default function PlaylistCard({ playlist, hideUser }) {
 
   return (
     <div
-      className="rounded bg-zinc-900 hover:bg-zinc-800 m-4 p-4 h-64 grow-0 text-ellipsis transition-colors group cursor-pointer"
+      className="rounded bg-zinc-900 hover:bg-zinc-800 mx-3 p-4 h-64 grow-0 text-ellipsis transition-colors group cursor-pointer"
       onClick={() => {
         routeChange();
       }}
     >
       {playlist.image ? (
         <img
-          className="rounded w-36 h-36 mb-1"
+          className="rounded w-36 h-36 mb-4"
           src={playlist.image}
           alt="playlist cover"
         />

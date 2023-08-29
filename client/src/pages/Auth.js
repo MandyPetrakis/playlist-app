@@ -144,7 +144,7 @@ export default function Auth({ setShowLogIn }) {
           onChange={(e) => setFirstName(e.target.value)}
         />
       </label>
-      <button className="mb-5 bg-emerald-400 rounded p-2" type="submit">
+      <button className="mb-5 mt-5 bg-emerald-400 rounded p-2" type="submit">
         Continue
       </button>
       <div className="text-red-500 text-xs">
@@ -166,7 +166,7 @@ export default function Auth({ setShowLogIn }) {
   );
 
   const continueButton = (
-    <button className="mb-5 bg-emerald-400 rounded p-2" type="submit">
+    <button className="mb-5 mt-5 bg-emerald-400 rounded p-2" type="submit">
       Continue
     </button>
   );

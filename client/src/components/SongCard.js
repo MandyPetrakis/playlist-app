@@ -100,13 +100,7 @@ export default function SongCard({
           onClick={toggleModal}
           className="z-10 w-full h-full top-0 left-0 right-0 bottom-0 fixed"
         ></div>
-        <div
-          onClick={() => {
-            toggleModal();
-          }}
-          className="w-screen h-screen top-0 left-0 right-0 bottom-0 fixed"
-        ></div>
-        <div className="z-20 absolute right-11 bottom-9 bg-zinc-600 p-8 rounded max-w-md min-w-md grid place-content-center">
+        <div className="z-20 absolute right-11 bottom-9 bg-zinc-600 px-10 py-5 rounded max-w-md min-w-md grid place-content-center">
           <div className="text-emerald-400 font-semibold mb-3">Appears on</div>
           {appearsOn.length === 0 ? (
             <span className="text-zinc-300">Not saved to any playlists</span>
@@ -122,14 +116,14 @@ export default function SongCard({
     <div className="group flex relative mb-1 px-5 py-3 items-center w-full rounded hover:bg-zinc-800 transition-colors">
       {canAdd ? addButton : null}
       <img
-        className="w-14 mr-5"
+        className="w-16 h-16 mr-5 rounded object-cover"
         src={
           song.image
             ? song.image
             : "https://e1.pxfuel.com/desktop-wallpaper/389/930/desktop-wallpaper-spotify-playlist-cover-playlist-covers.jpg"
         }
       />
-      <div className="w-11/12">
+      <div className="w-11/12 overflow-scroll whitespace-nowrap mr-2">
         <span className="text-zinc-100 text-md">{song.title} </span> <br />
         <span className="text-zinc-600 text-sm group-hover:text-zinc-100 transition-colors">
           {song.artist}

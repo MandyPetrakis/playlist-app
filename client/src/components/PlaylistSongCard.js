@@ -40,7 +40,7 @@ export default function PlaylistSongCard({
   return (
     <div className="group flex mb-1 px-5 py-3 items-center w-full rounded hover:bg-zinc-800 transition-colors">
       <div className="mr-5">{index + 1}</div>
-      <img className="w-14 mr-5" src={playlist_song.song_image} />
+      <img className="w-14 mr-5 rounded" src={playlist_song.song_image} />
       <div className="w-11/12">
         <span className="text-zinc-100 text-md">
           {playlist_song.song_title} <br />

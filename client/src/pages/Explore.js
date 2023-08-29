@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useSongs } from "../Context";
+import { useCurrentUser, useSongs } from "../Context";
 import SongCard from "../components/SongCard";
 import { useLoaderData } from "react-router-dom";
 import PlaylistCard from "../components/PlaylistCard";
@@ -9,12 +9,13 @@ export default function Explore() {
   const [artist, setArtist] = useState("");
   const [errors, setErrors] = useState();
   const [songs, setSongs] = useSongs();
+  const [currentUser] = useCurrentUser();
   const [visibleSongs, setVisibleSongs] = useState(20);
   const playlists = useLoaderData();
 
-  const explorePlaylists = playlists.map((p) => (
-    <PlaylistCard key={p.id} playlist={p} />
-  ));
+  const explorePlaylists = playlists
+    .filter((p) => p.user_id !== currentUser.id)
+    .map((p) => <PlaylistCard key={p.id} playlist={p} />);
 
   const exploreSongs = songs
     .slice(0, visibleSongs)
@@ -51,26 +52,26 @@ export default function Explore() {
   }
 
   const songAddForm = (
-    <div className="flex mb-3  justify-between items-center w-full pl-8 py-3 rounded  hover:bg-zinc-800 transition-colors group border-b-2 border-zinc-700">
-      <div>
-        <form onSubmit={handleAddSong}>
+    <div className="flex mb-3 rounded justify-between items-center w-full pl-8 py-3   hover:bg-zinc-800 transition-colors group">
+      <div className="w-full">
+        <form className="w-full" onSubmit={handleAddSong}>
           <input
-            className={`bg-transparent focus:outline-none mb-1 ${
+            className={`bg-transparent focus:outline-none mb-2 w-80 ${
               errors ? "placeholder-red-500" : null
             }`}
             type="text"
             value={songTitle}
-            placeholder={`${errors ? "*Title" : "Title"}`}
+            placeholder={`${errors ? "* Title" : "Title"}`}
             onChange={(e) => setSongTitle(e.target.value)}
           />
           <br />
           <input
-            className={`bg-transparent focus:outline-none mb-1 ${
+            className={`bg-transparent focus:outline-none mb-2 w-80 ${
               errors ? "placeholder-red-500" : null
             }`}
             type="text"
             value={artist}
-            placeholder={`${errors ? "*Artist" : "Artist"}`}
+            placeholder={`${errors ? "* Artist" : "Artist"}`}
             onChange={(e) => setArtist(e.target.value)}
           />
           <button></button>
@@ -107,14 +108,17 @@ export default function Explore() {
 
   return (
     <>
-      <span className="text-3xl text-emerald-300 mb-1">Explore Playlists</span>
-      <div className="flex overflow-scroll scrollbar-hide text-xl border-b-2 mb-5 border-zinc-700">
+      <div className="text-3xl text-zinc-100 mb-5">Explore Playlists</div>
+      <div className="flex overflow-scroll scrollbar-hide text-xl border-b-2 mb-5 pb-6 border-zinc-700">
         {explorePlaylists}
       </div>
-      <div className="text-3xl text-emerald-300 mb-1">Song Library</div>
+      <div className="text-2xl text-zinc-300 mb-5">Song Library</div>
       <div className="">
-        <div className="mb-2 text-xs font-extralight">Add song to library</div>
+        <div className="mb-2 text-sm font-semibold text-zinc-300">
+          Add song to library
+        </div>
         {songAddForm}
+        <div className="border-b-2 mb-5 border-zinc-700"></div>
         {exploreSongs}
         {visibleSongs >= songs.length ? (
           <div className="mb-5 text-center bg-zinc-900 px-3 py-2 opacity-80 rounded hover:opacity-100 w-full">
